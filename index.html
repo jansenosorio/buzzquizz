@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/quizz-list.css" />
     <link rel="stylesheet" href="css/quizz-page.css" />
+    <link rel="stylesheet" href="css/quizzregistration31.css" />
 
     <title>BuzzQuizz</title>
   </head>
@@ -96,7 +97,7 @@
         </div>
         <!--Fim-Tela-1-->
         <!--Tela-2-->
-        <section class="quizz-page-screen">
+        <section class="quizz-page-screen hidden">
           <div class="quizz-page">
             <header class="quizz-title">
               <h3>O quão Potterhead é você?</h3>
@@ -198,9 +199,38 @@
           </div>
         </section>
         <!--Fim-Tela-2-->
+        <!-- Begin Page 3.1 - User Registration Quiz -->
+        <div class="container-screen-1 hidden">
+          <h1 class="screen-title">Começe pelo começo</h1>
+          <div class="box-initials-informations">
+            <input
+              type="text"
+              class="in-title"
+              placeholder="Título do seu quizz"
+            />
+            <input
+              type="text"
+              class="in-url"
+              placeholder="URL da imagem do seu quizz"
+            />
+            <input
+              type="text"
+              class="in-number-questions"
+              placeholder="Quantidade de perguntas do quizz"
+            />
+            <input
+              type="text"
+              class="in-number-levels"
+              placeholder="Quantidade de níveis do quizz"
+            />
+          </div>
+          <button class="bt-create-questions">
+            Prosseguir para criar perguntas
+          </button>
+        </div>
+        <!-- End Page 3.1 - User Registration Quiz -->
       </main>
     </main>
-
     <!--Scripts-->
     <script
       type="module"
