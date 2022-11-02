@@ -1,5 +1,4 @@
 .quizz-list-screen {
-    display: none;
     margin-top: 138px;
     width: 80%;
 }
@@ -150,6 +149,6 @@
 }
 /*------------------------Responsividade------------------------*/
 
-.hidden {
+/* .hidden {
     display: none;
-}
+} */
