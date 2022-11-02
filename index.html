@@ -1,81 +1,217 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/quizz-list.css">
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/quizz-list.css" />
+    <link rel="stylesheet" href="css/quizz-page.css" />
 
     <title>BuzzQuizz</title>
-</head>
+  </head>
 
-<body>
-    <main>
-        <!--Esse header vai servir pra todas as telas-->
-        <header>
-            <h1>BuzzQuizz</h1>
-        </header>
-        <!--Etão a gente pode trabalhar a visibilidade a partir daqui-->
+  <body>
+    <main class="main-container">
+      <!--Esse header vai servir pra todas as telas-->
+      <header class="header-content">
+        <h1>BuzzQuizz</h1>
+      </header>
+      <!--Etão a gente pode trabalhar a visibilidade a partir daqui-->
+
+      <main class="main-content">
         <!--Tela-1-->
-        <div class="quizz-list-screen">
-            <div class="container-list">
-                <div class="user-area">
-                    <div class="no-quizz">
-                        <p>Você não criou nenhum quizz ainda :(</p>
-                        <button onclick="toggleTest()" >Criar Quizz</button>
-                    </div>
-                    <div class="with-quizz hidden">
-                        <h2>Seus Quizzes
-                            <ion-icon onclick="toggleTest()" name="add-circle"></ion-icon>
-                        </h2>
-                        <div class="list">
-                            <div class="quizz">
-                                <h3>Acerte os personagens corretos dos Simpsons e prove seu amor!</h3>
-                            </div>
-                            <div class="quizz">
-                                <h3>Acerte os personagens corretos dos Simpsons e prove seu amor!</h3>
-                            </div>
-                        </div>
-                    </div>
+        <div class="quizz-list-screen hidden">
+          <div class="container-list">
+            <div class="user-area">
+              <div class="no-quizz">
+                <p>Você não criou nenhum quizz ainda :(</p>
+                <button onclick="toggleTest()">Criar Quizz</button>
+              </div>
+              <div class="with-quizz hidden">
+                <h2>
+                  Seus Quizzes
+                  <ion-icon onclick="toggleTest()" name="add-circle"></ion-icon>
+                </h2>
+                <div class="list">
+                  <div class="quizz">
+                    <h3>
+                      Acerte os personagens corretos dos Simpsons e prove seu
+                      amor!
+                    </h3>
+                  </div>
+                  <div class="quizz">
+                    <h3>
+                      Acerte os personagens corretos dos Simpsons e prove seu
+                      amor!
+                    </h3>
+                  </div>
                 </div>
-                <div class="all-area">
-                    <h2>Todos os Quizzes</h2>
-                    <div class="list">
-                        <div class="quizz">
-                            <h3>Acerte os personagens corretos dos Simpsons e prove seu amor!</h3>
-                        </div>
-                        <div class="quizz">
-                            <h3>Acerte os personagens corretos dos Simpsons e prove seu amor!</h3>
-                        </div>
-                        <div class="quizz">
-                            <h3>Acerte os personagens corretos dos Simpsons e prove seu amor!</h3>
-                        </div>
-                        <div class="quizz">
-                            <h3>Acerte os personagens corretos dos Simpsons e prove seu amor!</h3>
-                        </div>
-                        <div class="quizz">
-                            <h3>Acerte os personagens corretos dos Simpsons e prove seu amor!</h3>
-                        </div>
-                        <div class="quizz">
-                            <h3>Acerte os personagens corretos dos Simpsons e prove seu amor!</h3>
-                        </div>
-                    </div>
-                </div>
+              </div>
             </div>
+            <div class="all-area">
+              <h2>Todos os Quizzes</h2>
+              <div class="list">
+                <div class="quizz">
+                  <h3>
+                    Acerte os personagens corretos dos Simpsons e prove seu
+                    amor!
+                  </h3>
+                </div>
+                <div class="quizz">
+                  <h3>
+                    Acerte os personagens corretos dos Simpsons e prove seu
+                    amor!
+                  </h3>
+                </div>
+                <div class="quizz">
+                  <h3>
+                    Acerte os personagens corretos dos Simpsons e prove seu
+                    amor!
+                  </h3>
+                </div>
+                <div class="quizz">
+                  <h3>
+                    Acerte os personagens corretos dos Simpsons e prove seu
+                    amor!
+                  </h3>
+                </div>
+                <div class="quizz">
+                  <h3>
+                    Acerte os personagens corretos dos Simpsons e prove seu
+                    amor!
+                  </h3>
+                </div>
+                <div class="quizz">
+                  <h3>
+                    Acerte os personagens corretos dos Simpsons e prove seu
+                    amor!
+                  </h3>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <!--Fim-Tela-1-->
-
+        <!--Tela-2-->
+        <section class="quizz-page-screen">
+          <div class="quizz-page">
+            <header class="quizz-title">
+              <h3>O quão Potterhead é você?</h3>
+            </header>
+            <section class="quizz-content">
+              <header class="quizz-question">
+                <h4>Em qual animal Olho-Tonto Moody transfigurou Malfoy?</h4>
+              </header>
+              <main class="quizz-answers">
+                <div class="quizz-single-answer">
+                  <img
+                    src="https://www.petz.com.br/blog/wp-content/uploads/2021/11/enxoval-para-gato-Copia.jpg"
+                    alt=""
+                  />
+                  <h5>Gatíneo</h5>
+                </div>
+                <div class="quizz-single-answer">
+                  <img
+                    src="https://www.petz.com.br/blog/wp-content/uploads/2021/11/enxoval-para-gato-Copia.jpg"
+                    alt=""
+                  />
+                  <h5>Gatíneo</h5>
+                </div>
+                <div class="quizz-single-answer">
+                  <img
+                    src="https://www.petz.com.br/blog/wp-content/uploads/2021/11/enxoval-para-gato-Copia.jpg"
+                    alt=""
+                  />
+                  <h5>Gatíneo</h5>
+                </div>
+                <div class="quizz-single-answer">
+                  <img
+                    src="https://www.petz.com.br/blog/wp-content/uploads/2021/11/enxoval-para-gato-Copia.jpg"
+                    alt=""
+                  />
+                  <h5>Gatíneo</h5>
+                </div>
+              </main>
+            </section>
+            <section class="quizz-content">
+              <header class="quizz-question">
+                <h4>Em qual animal Olho-Tonto Moody transfigurou Malfoy?</h4>
+              </header>
+              <main class="quizz-answers">
+                <div class="quizz-single-answer">
+                  <img
+                    src="https://www.petz.com.br/blog/wp-content/uploads/2021/11/enxoval-para-gato-Copia.jpg"
+                    alt=""
+                  />
+                  <h5>Gatíneo</h5>
+                </div>
+                <div class="quizz-single-answer">
+                  <img
+                    src="https://www.petz.com.br/blog/wp-content/uploads/2021/11/enxoval-para-gato-Copia.jpg"
+                    alt=""
+                  />
+                  <h5>Gatíneo</h5>
+                </div>
+                <div class="quizz-single-answer">
+                  <img
+                    src="https://www.petz.com.br/blog/wp-content/uploads/2021/11/enxoval-para-gato-Copia.jpg"
+                    alt=""
+                  />
+                  <h5>Gatíneo</h5>
+                </div>
+                <div class="quizz-single-answer">
+                  <img
+                    src="https://www.petz.com.br/blog/wp-content/uploads/2021/11/enxoval-para-gato-Copia.jpg"
+                    alt=""
+                  />
+                  <h5>Gatíneo</h5>
+                </div>
+              </main>
+            </section>
+            <div class="quizz-level">
+              <section class="quizz-content">
+                <header class="quizz-question">
+                  <h4>
+                    88% de acerto: Você é praticamente um aluno de Hogwarts!
+                  </h4>
+                </header>
+                <main class="quizz-answers quizz-recomendation">
+                  <img
+                    src="https://img.wattpad.com/486cbed0c3cff15cd35b386c8212f45b57457354/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f776174747061642d6d656469612d736572766963652f53746f7279496d6167652f4c6d4c6b54624578474b384e47413d3d2d313033313135333531332e313636366137343230383365333838643130393338393638373634362e6a7067?s=fit&w=720&h=720"
+                    alt=""
+                  />
+                  <p>
+                    Parabéns Potterhead! Bem-vindx a Hogwarts, aproveite o loop
+                    infinito de comida e clique no botão abaixo para usar o
+                    vira-tempo e reiniciar este teste.
+                  </p>
+                </main>
+              </section>
+              <div class="btn-group">
+                <button class="btn-resetQuiz">Reiniciar Quizz</button>
+                <button class="btn-backToHome">Voltar pra home</button>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!--Fim-Tela-2-->
+      </main>
     </main>
 
     <!--Scripts-->
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <script src="src/script.js"></script>
-</body>
-
+  </body>
 </html>

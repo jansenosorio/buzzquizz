@@ -1,0 +1,158 @@
+.quizz-page-screen {
+  width: 100%;
+}
+.quizz-page {
+  padding-top: 70px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.quizz-title {
+  width: 100%;
+  height: 227px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.57), rgba(0, 0, 0, 0.57)),
+    url(https://s2.glbimg.com/92dAiHyL-NvUVV8Ij78j7kkHNtI=/e.glbimg.com/og/ed/f/original/2019/11/26/wizarding-world.jpg);
+  background-size: cover;
+  background-position: center;
+  margin-bottom: 80px;
+}
+.quizz-title h3 {
+  font-size: 39px;
+  color: #fff;
+}
+
+/*----------------------------Cada pergunta/resposta do quizz-----------------------*/
+
+.quizz-content {
+  padding: 27px 36px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 759px;
+  gap: 20px;
+  background-color: #fff;
+  border-radius: 9px;
+  box-shadow: 0px 0px 10px 0px #0000000d;
+  margin-bottom: 42px;
+}
+.quizz-content .quizz-question {
+  width: 100%;
+  min-height: 140px;
+  background-color: #434ca0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top-left-radius: 9px;
+  border-top-right-radius: 9px;
+}
+.quizz-content .quizz-question h4 {
+  font-size: 23px;
+  font-weight: 700;
+  color: #fff;
+  text-align: center;
+  padding: 0px 12px;
+}
+.quizz-answers {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 18px 24px;
+}
+.quizz-single-answer {
+  width: 330px;
+  transition: opacity 200ms linear;
+}
+.quizz-single-answer img {
+  width: 100%;
+  margin-bottom: 8px;
+}
+.quizz-single-answer h5 {
+  font-size: 20px;
+  font-weight: 700;
+}
+.quizz-single-answer.quizz-answer-notSelected {
+  opacity: 0.3;
+}
+
+/*----------------------------Estiliza o nível--------------------------*/
+.quizz-level .quizz-content {
+  padding: 18px;
+  margin-bottom: 57px;
+}
+.quizz-level .quizz-question {
+  background-color: #ec362d;
+  min-height: 100px;
+}
+.quizz-level img {
+  width: 360px;
+}
+.quizz-level p {
+  width: 320px;
+  color: #484848;
+  font-size: 19px;
+  font-weight: 700;
+}
+.quizz-level .btn-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 85px;
+}
+.quizz-level .btn-group button {
+  width: 260px;
+  height: 52px;
+  border-radius: 15px;
+  border: none;
+  cursor: pointer;
+  font-size: 21px;
+  transition: opacity 200ms;
+}
+.btn-resetQuiz {
+  background-color: #ec362d;
+  color: #fff5f4;
+}
+.btn-resetQuiz:hover {
+  opacity: 0.9;
+}
+.btn-backToHome {
+  background-color: transparent;
+  color: #818181;
+}
+.btn-backToHome:hover {
+  opacity: 0.9;
+}
+
+@media (max-width: 1100px) {
+  .quizz-content,
+  .quizz-single-answer,
+  .quizz-recomendation img,
+  .quizz-recomendation p {
+    width: 100%;
+    border-radius: 0px;
+  }
+  .quizz-content .quizz-question h4 {
+    font-size: 19px;
+  }
+  .quizz-answers {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+  }
+  .quizz-single-answer h5 {
+    font-size: 13px;
+  }
+  .quizz-level .quizz-recomendation {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .quizz-level .btn-group button {
+    width: 220px;
+    height: 44px;
+    font-size: 18px;
+  }
+}
