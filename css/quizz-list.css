@@ -1,0 +1,50 @@
+.quizz-list-screen {
+    margin-top: 138px;
+    width: 80%;
+    height: 100vh;
+
+}
+
+.container-list, .user-list {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+
+.user-list {
+    height: 181px;
+
+    justify-content: space-around;
+    align-items: center;
+
+    color: #D4D4D4;
+    padding: 20px;
+
+    border: 1px dashed #D4D4D4;
+    border-radius: 5px;
+}
+
+.user-list p {
+    text-align: center;
+    font-size: 20px;
+    width: 250px;
+}
+
+.user-list button{
+    width: 151px;
+    height: 40px;
+
+    font-size: 21px;
+    color: #EC362D;
+
+    border: 1px dashed #EC362D;
+    border-radius: 50px;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.user-list button:hover{
+    transition: all 100ms linear;
+
+    cursor: pointer;
+    border: 2px solid;
+}
