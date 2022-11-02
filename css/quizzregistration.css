@@ -1,0 +1,139 @@
+/* Style configurations of user quizz registration pages 3.1/3.2 */
+
+input {
+  margin: 5px 0 5px 0;
+}
+
+.container-screen-1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.screen-title {
+  margin-top: 140px;
+  margin-bottom: 26px;
+  font-weight: 700;
+  font-size: 23px;
+}
+
+.box-initials-informations,
+.box-create-questions {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+
+  padding: 20px 20px 20px 20px;
+
+  max-width: 600px;
+  height: auto;
+  background: #FFFFFF;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+}
+
+.box-initials-informations input,
+.box-create-questions input {
+  width: 564px;
+  height: 46px;
+  border: 1px solid #D1D1D1;
+  border-radius: 5px;
+
+  font-style: italic;
+  font-size: 19px;
+  padding-left: 23px;
+}
+
+.bt-create-questions,
+.bt-create-levels {
+  margin-top: 85px;
+
+  width: 369px;
+  height: 54px;
+
+  border: none;
+  background: #EC362D;
+  border-radius: 15px;
+
+  color: white;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 21px;
+
+  margin-bottom: 80px;
+}
+
+.bt-create-questions:hover,
+.bt-create-levels:hover {
+  cursor: pointer;
+}
+
+/* Style configurations of user quizz registration pages ONLY 3.2 */
+
+.in-title-question {
+  font-weight: 700;
+  font-size: 20px;
+  margin-top: 25px;
+  margin-bottom: 20px;
+}
+
+.box-questions-without-title {
+  margin-bottom: 20px;
+}
+
+.box-questions-with-title {
+  margin-bottom: 20px;
+}
+
+.box-create-questions-closed {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+
+  padding: 20px 20px 20px 20px;
+  margin-top: 24px;
+
+  width: 600px;
+  max-height: 74px;
+  background: #FFFFFF;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+}
+
+ion-icon {
+  font-size: 26px;
+}
+
+/* Responsiveness */
+
+@media (max-width: 1100px) {
+  .container-screen-1 {
+    width: 100%;
+  }
+
+  .box-initials-informations {
+    width: 100%;
+    margin-bottom: 29px;
+  }
+
+  .box-create-questions,
+  .box-create-questions-closed {
+    width: 100%;
+  }
+
+  .box-initials-informations input,
+  .box-create-questions input {
+    width: 100%;
+  }
+
+  .bt-create-questions {
+    margin-top: 0;
+  }
+
+  .bt-create-levels {
+    margin-top: 46px;
+    margin-bottom: 46px;
+  }
+}
