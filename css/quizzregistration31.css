@@ -1,7 +1,7 @@
 /* Style configurations of user quizz registration pages */
 
 .container-screen-1 {
-  display: none;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -58,6 +58,25 @@
 
 .bt-create-questions:hover {
   cursor: pointer;
+}
+
+@media (max-width: 1100px) {
+  .container-screen-1 {
+    width: 100%;
+  }
+
+  .box-initials-informations {
+    width: 100%;
+    margin-bottom: 29px;
+  }
+
+  .box-initials-informations input {
+    width: 100%;
+  }
+
+  .bt-create-questions {
+    margin-top: 0;
+  }
 }
 
 
