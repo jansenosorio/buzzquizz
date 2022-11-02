@@ -1,81 +1,133 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/quizz-list.css">
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/quizz-list.css" />
+    <link rel="stylesheet" href="css/quizzregistration.css" />
 
     <title>BuzzQuizz</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <main>
-        <!--Esse header vai servir pra todas as telas-->
-        <header>
-            <h1>BuzzQuizz</h1>
-        </header>
-        <!--Etão a gente pode trabalhar a visibilidade a partir daqui-->
-        <!--Tela-1-->
-        <div class="quizz-list-screen">
-            <div class="container-list">
-                <div class="user-area">
-                    <div class="no-quizz">
-                        <p>Você não criou nenhum quizz ainda :(</p>
-                        <button onclick="toggleTest()" >Criar Quizz</button>
-                    </div>
-                    <div class="with-quizz hidden">
-                        <h2>Seus Quizzes
-                            <ion-icon onclick="toggleTest()" name="add-circle"></ion-icon>
-                        </h2>
-                        <div class="list">
-                            <div class="quizz">
-                                <h3>Acerte os personagens corretos dos Simpsons e prove seu amor!</h3>
-                            </div>
-                            <div class="quizz">
-                                <h3>Acerte os personagens corretos dos Simpsons e prove seu amor!</h3>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="all-area">
-                    <h2>Todos os Quizzes</h2>
-                    <div class="list">
-                        <div class="quizz">
-                            <h3>Acerte os personagens corretos dos Simpsons e prove seu amor!</h3>
-                        </div>
-                        <div class="quizz">
-                            <h3>Acerte os personagens corretos dos Simpsons e prove seu amor!</h3>
-                        </div>
-                        <div class="quizz">
-                            <h3>Acerte os personagens corretos dos Simpsons e prove seu amor!</h3>
-                        </div>
-                        <div class="quizz">
-                            <h3>Acerte os personagens corretos dos Simpsons e prove seu amor!</h3>
-                        </div>
-                        <div class="quizz">
-                            <h3>Acerte os personagens corretos dos Simpsons e prove seu amor!</h3>
-                        </div>
-                        <div class="quizz">
-                            <h3>Acerte os personagens corretos dos Simpsons e prove seu amor!</h3>
-                        </div>
-                    </div>
-                </div>
+      <!--Esse header vai servir pra todas as telas-->
+      <header>
+        <h1>BuzzQuizz</h1>
+      </header>
+      <!--Etão a gente pode trabalhar a visibilidade a partir daqui-->
+      <!--Tela-1-->
+      <div class="quizz-list-screen">
+        <div class="container-list">
+          <div class="user-area">
+            <div class="no-quizz">
+              <p>Você não criou nenhum quizz ainda :(</p>
+              <button onclick="toggleTest()">Criar Quizz</button>
             </div>
+            <div class="with-quizz hidden">
+              <h2>
+                Seus Quizzes
+                <ion-icon onclick="toggleTest()" name="add-circle"></ion-icon>
+              </h2>
+              <div class="list">
+                <div class="quizz">
+                  <h3>
+                    Acerte os personagens corretos dos Simpsons e prove seu
+                    amor!
+                  </h3>
+                </div>
+                <div class="quizz">
+                  <h3>
+                    Acerte os personagens corretos dos Simpsons e prove seu
+                    amor!
+                  </h3>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="all-area">
+            <h2>Todos os Quizzes</h2>
+            <div class="list">
+              <div class="quizz">
+                <h3>
+                  Acerte os personagens corretos dos Simpsons e prove seu amor!
+                </h3>
+              </div>
+              <div class="quizz">
+                <h3>
+                  Acerte os personagens corretos dos Simpsons e prove seu amor!
+                </h3>
+              </div>
+              <div class="quizz">
+                <h3>
+                  Acerte os personagens corretos dos Simpsons e prove seu amor!
+                </h3>
+              </div>
+              <div class="quizz">
+                <h3>
+                  Acerte os personagens corretos dos Simpsons e prove seu amor!
+                </h3>
+              </div>
+              <div class="quizz">
+                <h3>
+                  Acerte os personagens corretos dos Simpsons e prove seu amor!
+                </h3>
+              </div>
+              <div class="quizz">
+                <h3>
+                  Acerte os personagens corretos dos Simpsons e prove seu amor!
+                </h3>
+              </div>
+            </div>
+          </div>
         </div>
-        <!--Fim-Tela-1-->
-
+      </div>
+      <!--Fim-Tela-1-->
+      <!-- Início Tela 3.1 - Cadastro Usuário -->
+      <div class="container-screen-1">
+        <h1 class="screen-title">Começe pelo começo</h1>
+        <div class="box-initials-informations">
+          <input
+            type="text"
+            class="in-title"
+            placeholder="Título do seu quizz"
+          />
+          <input
+            type="text"
+            class="in-url"
+            placeholder="URL da imagem do seu quizz"
+          />
+          <input
+            type="text"
+            class="in-number-questions"
+            placeholder="Quantidade de perguntas do quizz"
+          />
+          <input
+            type="text"
+            class="in-number-levels"
+            placeholder="Quantidade de níveis do quizz"
+          />
+        </div>
+        <button class="bt-create-questions">
+          Prosseguir para criar perguntas
+        </button>
+      </div>
     </main>
 
     <!--Scripts-->
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
 
     <script src="src/script.js"></script>
-</body>
-
+  </body>
 </html>
