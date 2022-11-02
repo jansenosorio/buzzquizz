@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="css/reset.css" />
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/quizz-list.css" />
-    <link rel="stylesheet" href="css/quizzregistration31.css" />
+    <link rel="stylesheet" href="css/quizzregistration.css" />
 
     <title>BuzzQuizz</title>
   </head>
@@ -88,35 +88,119 @@
       </div>
       <!--Fim-Tela-1-->
       <!-- Begin Page 3.1 - User Registration Quiz -->
-      <div class="container-screen-1">
-        <h1 class="screen-title">Começe pelo começo</h1>
-        <div class="box-initials-informations">
-          <input
-            type="text"
-            class="in-title"
-            placeholder="Título do seu quizz"
-          />
-          <input
-            type="text"
-            class="in-url"
-            placeholder="URL da imagem do seu quizz"
-          />
-          <input
-            type="text"
-            class="in-number-questions"
-            placeholder="Quantidade de perguntas do quizz"
-          />
-          <input
-            type="text"
-            class="in-number-levels"
-            placeholder="Quantidade de níveis do quizz"
-          />
+      <div class="container-page-3-1 hidden">
+        <div class="container-screen-1">
+          <h1 class="screen-title">Começe pelo começo</h1>
+          <div class="box-initials-informations">
+            <input
+              type="text"
+              class="in-title"
+              placeholder="Título do seu quizz"
+            />
+            <input
+              type="text"
+              class="in-url"
+              placeholder="URL da imagem do seu quizz"
+            />
+            <input
+              type="text"
+              class="in-number-questions"
+              placeholder="Quantidade de perguntas do quizz"
+            />
+            <input
+              type="text"
+              class="in-number-levels"
+              placeholder="Quantidade de níveis do quizz"
+            />
+          </div>
+          <button class="bt-create-questions">
+            Prosseguir para criar perguntas
+          </button>
         </div>
-        <button class="bt-create-questions">
-          Prosseguir para criar perguntas
-        </button>
       </div>
       <!-- End Page 3.1 - User Registration Quiz -->
+      <!-- Begin Page 3.2 - Create Your Questions -->
+      <div class="container-page-3-2">
+        <div class="container-screen-1">
+          <h1 class="screen-title">Crie suas perguntas</h1>
+          <div class="box-create-questions">
+            <div class="box-questions-with-title">
+              <h2 class="in-title-question">Pergunta 1</h2>
+              <input
+                type="text"
+                class="in-text-question"
+                placeholder="Texto da pergunta"
+              />
+              <input
+                type="text"
+                class="in-background-question"
+                placeholder="Cor de fundo da pergunta"
+              />
+            </div>
+            <div class="box-questions-with-title">
+              <h2 class="in-title-question">Resposta correta</h2>
+              <input
+                type="text"
+                class="in-correct-answer"
+                placeholder="Resposta correta"
+              />
+              <input
+                type="text"
+                class="in-url-correct-img"
+                placeholder="URL da imagem"
+              />
+            </div>
+            <div class="box-questions-with-title">
+              <h2 class="in-title-question">Resposta incorreta</h2>
+              <input
+                type="text"
+                class="in-incorrect-answer-1"
+                placeholder="Resposta incorreta 1"
+              />
+              <input
+                type="text"
+                class="in-url-incorrect-img-1"
+                placeholder="URL da imagem 1"
+              />
+            </div>
+            <div class="box-questions-without-title">
+              <input
+                type="text"
+                class="in-incorrect-answer-2"
+                placeholder="Resposta incorreta 2"
+              />
+              <input
+                type="text"
+                class="in-url-incorrect-img-2"
+                placeholder="URL da imagem 2"
+              />
+            </div>
+            <div class="box-questions-without-title">
+              <input
+                type="text"
+                class="in-incorrect-answer-3"
+                placeholder="Resposta incorreta 3"
+              />
+              <input
+                type="text"
+                class="in-url-incorrect-img-3"
+                placeholder="URL da imagem 3"
+              />
+            </div>
+          </div>
+          <div class="box-create-questions-closed">
+            <h2 class="in-title-question">Pergunta 2</h2>
+            <ion-icon name="create-outline"></ion-icon>
+          </div>
+          <div class="box-create-questions-closed">
+            <h2 class="in-title-question">Pergunta 3</h2>
+            <ion-icon name="create-outline"></ion-icon>
+          </div>
+          <button class="bt-create-levels">
+            Prosseguir para criar niveis
+          </button>
+      </div>
+      <!-- End Page 3.2 - Create Your Questions -->
     </main>
 
     <!--Scripts-->
