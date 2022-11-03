@@ -1,12 +1,16 @@
 const noQuizz = document.querySelector('.no-quizz');
 const withQuizz = document.querySelector('.with-quizz');
 
+/*Paginas para navegação com 'hidden'*/
+const page3 = document.querySelector('.container-page-3-1');
+const page1 = document.querySelector('.quizz-list-screen');
+
 const url = "https://mock-api.driven.com.br/api/v4/buzzquizz/";
 const allList = document.querySelector('.all');
 
 function toggleTest(){
-    noQuizz.classList.toggle('hidden');
-    withQuizz.classList.toggle('hidden');
+    page1.classList.toggle('hidden');
+    page3.classList.toggle('hidden');
 }
 
 /*Função para renderizar os quizzes de outros usuarios*/
