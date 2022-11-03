@@ -1,9 +1,9 @@
 .quizz-list-screen {
     margin-top: 138px;
-    width: 80%;
+    width: 1051px;
 }
 
-.container-list, .user-area {
+.container-list {
     display: flex;
     width: 100%;
     flex-direction: column;
@@ -11,9 +11,11 @@
 }
 
 .user-area {
+    display: flex;
     min-height: 181px;
-    width: 1051px;
+    max-width: 1051px;
 
+    flex-direction: column;
     justify-content: space-around;
     align-items: center;
 
@@ -50,7 +52,7 @@
 .no-quizz {
     display: flex;
     height: 181px;
-    width: 100%;
+    width: 1051px;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
@@ -63,7 +65,8 @@
 
 /*------------------Com quizzes listados---------------------------*/
 .with-quizz {
-    width: 100%;
+    display: grid;
+    max-width: 1051px;
 }
 
 .with-quizz h2{
@@ -87,6 +90,7 @@
 
 /*------------------------Lista de Todos os Quizzes------------------------------*/
 .all-area{
+    max-width: 1051px;
     margin: 69px 0;
 }
 .all-area h2{
@@ -106,17 +110,11 @@
     display: flex;
     align-items: flex-end;
     width: 340px;
-    height: 181px;
+    aspect-ratio: 4/2;
 
     border-radius: 5px;
 
-   /*background-image: url(http://static.glamurama.uol.com.br/2014/12/TheSimpsons.jpg);*/
     background-size: cover;
-}
-
-.quizz img{
-    width: auto;
-    height: auto;
 }
 
 .quizz h3{
@@ -146,7 +144,11 @@
     .quizz {
         width: 100%;
     }
-    /*Adicionar um width para o .user-area -> não ta responsivo*/
+
+    .no-quizz {
+        width: 90vw;
+    }
+
 }
 /*------------------------Responsividade------------------------*/
 
