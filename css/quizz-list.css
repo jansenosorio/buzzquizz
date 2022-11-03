@@ -146,10 +146,10 @@
     .quizz {
         width: 100%;
     }
-
+    /*Adicionar um width para o .user-area -> não ta responsivo*/
 }
 /*------------------------Responsividade------------------------*/
 
-.hidden {
+/* .hidden {
     display: none;
-}
+} */

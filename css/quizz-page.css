@@ -18,6 +18,8 @@
   background-size: cover;
   background-position: center;
   margin-bottom: 80px;
+  text-align: center;
+  padding: 0px 18px;
 }
 .quizz-title h3 {
   font-size: 39px;
@@ -67,6 +69,7 @@
 }
 .quizz-single-answer img {
   width: 100%;
+  max-height: 264px;
   margin-bottom: 8px;
 }
 .quizz-single-answer h5 {
@@ -134,13 +137,16 @@
     width: 100%;
     border-radius: 0px;
   }
-  .quizz-content .quizz-question h4 {
+  .quizz-content .quizz-question h4, .quizz-title h3 {
     font-size: 19px;
   }
   .quizz-answers {
     display: grid;
     grid-template-columns: 1fr 1fr;
     width: 100%;
+  }
+  .quizz-single-answer img{
+    max-height: none;
   }
   .quizz-single-answer h5 {
     font-size: 13px;
