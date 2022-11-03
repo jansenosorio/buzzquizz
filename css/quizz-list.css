@@ -12,6 +12,7 @@
 
 .user-area {
     min-height: 181px;
+    width: 1051px;
 
     justify-content: space-around;
     align-items: center;
@@ -109,7 +110,7 @@
 
     border-radius: 5px;
 
-    background-image: url(http://static.glamurama.uol.com.br/2014/12/TheSimpsons.jpg);
+   /*background-image: url(http://static.glamurama.uol.com.br/2014/12/TheSimpsons.jpg);*/
     background-size: cover;
 }
 
@@ -123,6 +124,7 @@
     display: flex;
     align-items: flex-end;
     height: 70%;
+    width: 100%;
 
     font-size: 19px;
 
@@ -148,6 +150,6 @@
 }
 /*------------------------Responsividade------------------------*/
 
-/* .hidden {
+.hidden {
     display: none;
-} */
+}
