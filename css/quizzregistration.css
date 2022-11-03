@@ -226,3 +226,9 @@ ion-icon {
     margin-top: 30px;
   }
 }
+
+/*Class hidden*/
+
+.hidden {
+  display: none;
+}

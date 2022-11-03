@@ -36,8 +36,3 @@ body {
     font-weight: 700;
     color: #ffff;
 }
-
-.hidden {
-    display: none;
-    opacity: 0;
-}
