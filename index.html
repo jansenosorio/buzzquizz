@@ -97,7 +97,7 @@
         </div>
         <!--Fim-Tela-1-->
         <!--Tela-2-->
-        <section class="quizz-page-screen">
+        <section class="quizz-page-screen hidden">
           <div class="quizz-page">
             <header class="quizz-title">
               <h3>O quão Potterhead é você?</h3>
@@ -237,7 +237,7 @@
             <h1 class="screen-title">Crie suas perguntas</h1>
             <div class="box-create-questions">
               <div class="box-questions-with-title">
-                <h2 class="in-title-question">Pergunta 1</h2>
+                <h2 class="title-question">Pergunta 1</h2>
                 <input
                   type="text"
                   class="in-text-question"
@@ -263,7 +263,7 @@
                 />
               </div>
               <div class="box-questions-with-title">
-                <h2 class="in-title-question">Resposta incorreta</h2>
+                <h2 class="title-question">Resposta incorreta</h2>
                 <input
                   type="text"
                   class="in-incorrect-answer-1"
@@ -314,6 +314,47 @@
           </div>
         </div>
         <!-- End Page 3.2 - Create Your Questions -->
+        <!-- Begin Page 3.3 - Create Your Levels -->
+        <div class="container-page-3-3">
+          <div class="container-screen-1">
+            <h1 class="screen-title">Agora, decida os níveis</h1>
+            <div class="box-create-levels">
+              <div class="box-levels">
+                <h2 class="title-box">Nível 1</h2>
+                <input
+                  type="text"
+                  class="in-title-levels"
+                  placeholder="Título do nível"
+                />
+                <input
+                  type="text"
+                  class="in-porcent-min"
+                  placeholder="% de acerto mínima"
+                />
+                <input
+                  type="text"
+                  class="in-url-img-levels"
+                  placeholder="URL da imagem do nível"
+                />
+                <input
+                  type="text"
+                  class="in-levels-description"
+                  placeholder="Descrição do nível"
+                />
+              </div>
+            </div>
+            <div class="box-create-levels-closed">
+              <h2 class="title-box">Nível 2</h2>
+              <ion-icon name="create-outline"></ion-icon>
+            </div>
+            <div class="box-create-levels-closed">
+              <h2 class="title-box">Nível 3</h2>
+              <ion-icon name="create-outline"></ion-icon>
+            </div>
+            <button class="bt-finish-quizz">Finalizar Quizz</button>
+          </div>
+        </div>
+        <!-- End Page 3.3 - Create Your Levels -->
       </main>
     </main>
     <!--Scripts-->

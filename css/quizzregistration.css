@@ -19,7 +19,8 @@ input {
 }
 
 .box-initials-informations,
-.box-create-questions {
+.box-create-questions,
+.box-create-levels {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -35,7 +36,8 @@ input {
 }
 
 .box-initials-informations input,
-.box-create-questions input {
+.box-create-questions input,
+.box-create-levels input {
   width: 564px;
   height: 46px;
   border: 1px solid #D1D1D1;
@@ -47,7 +49,8 @@ input {
 }
 
 .bt-create-questions,
-.bt-create-levels {
+.bt-create-levels,
+.bt-finish-quizz {
   margin-top: 85px;
 
   width: 369px;
@@ -66,13 +69,15 @@ input {
 }
 
 .bt-create-questions:hover,
-.bt-create-levels:hover {
+.bt-create-levels:hover,
+.bt-finish-quizz:hover {
   cursor: pointer;
 }
 
 /* Style configurations of user quizz registration pages ONLY 3.2 */
 
-.in-title-question {
+.title-question,
+.title-box {
   font-weight: 700;
   font-size: 20px;
   margin-top: 25px;
@@ -87,7 +92,8 @@ input {
   margin-bottom: 20px;
 }
 
-.box-create-questions-closed {
+.box-create-questions-closed,
+.box-create-levels-closed {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -119,12 +125,15 @@ ion-icon {
   }
 
   .box-create-questions,
-  .box-create-questions-closed {
+  .box-create-questions-closed,
+  .box-create-levels,
+  .box-create-levels-closed {
     width: 100%;
   }
 
   .box-initials-informations input,
-  .box-create-questions input {
+  .box-create-questions input,
+  .box-create-levels input {
     width: 100%;
   }
 
@@ -135,5 +144,9 @@ ion-icon {
   .bt-create-levels {
     margin-top: 46px;
     margin-bottom: 46px;
+  }
+
+  .bt-finish-quizz {
+    margin-top: 30px;
   }
 }
