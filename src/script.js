@@ -1,4 +1,4 @@
-// const noQuizz = document.querySelector('.no-quizz');
+const noQuizz = document.querySelector('.no-quizz');
 // const withQuizz = document.querySelector('.with-quizz');
 
 const btnCreat = document.querySelectorAll('.btn-create')
@@ -23,6 +23,15 @@ btnCreat.forEach((elm) => {
   });
 });
 
+/*Loading*/
+for(let i = 0; i < 9; i++){
+  allList.innerHTML += `
+    <div class="skeleton-quizz">
+      <div class="skeleton-text"></div>
+    </div>
+  `
+}
+
 /*Função para renderizar os quizzes de outros usuarios*/
 function renderAllQuizz(list) {
   let index = []
@@ -32,6 +41,8 @@ function renderAllQuizz(list) {
       index.push(aux)
     }
   }
+
+  allList.innerHTML = ""
 
   for (let i = 0; i < index.length; i++) {
     allList.innerHTML += `
@@ -71,6 +82,9 @@ function getAllQuizz() {
   promise.then(response => {
     quizzList = response.data
     renderAllQuizz(quizzList)
+
+    document.querySelector('.skeleton-loading').classList.add('hidden')
+    noQuizz.classList.remove('hidden')
   })
   promise.catch(error => console.log(error))
 }
