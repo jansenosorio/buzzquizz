@@ -65,6 +65,7 @@
 .quizz-single-answer {
   width: 330px;
   transition: opacity 200ms linear;
+  cursor: pointer;
 }
 .quizz-single-answer img {
   width: 100%;
@@ -75,10 +76,15 @@
   font-size: 20px;
   font-weight: 700;
 }
-.quizz-single-answer.quizz-answer-notSelected {
+.notSelected {
   opacity: 0.3;
 }
-
+.quizz-wrong-answer{
+  color: #FF4B4B;
+}
+.quizz-right-answer{
+  color: #009C22;
+}
 /*----------------------------Estiliza o nível--------------------------*/
 .quizz-level .quizz-content {
   padding: 18px;
