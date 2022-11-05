@@ -101,14 +101,14 @@ function renderQuestions(questions) {
   questions.forEach((singleQuestion) => {
     let questionAnswers = "";
     let answersList = singleQuestion.answers.sort(randomizeAnswers);
-
     answersList.forEach((answers) => {
       questionAnswers += `
             <div class="quizz-single-answer" value="${answers.isCorrectAnswer}">
-                <img
+                <!--<img
                 src="${answers.image}"
                 alt=""
-                />
+                />-->
+                <div class="answer-img" style="background-image:url(${answers.image})"></div>
                 <h5>${answers.text}</h5>
             </div>
             `;

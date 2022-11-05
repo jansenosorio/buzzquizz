@@ -18,7 +18,7 @@
   background-size: cover;
   margin-bottom: 80px;
   text-align: center;
-  padding: 0px 18px;
+  padding: 10px 18px;
 }
 .quizz-title h3 {
   font-size: 39px;
@@ -42,7 +42,6 @@
 .quizz-content .quizz-question {
   width: 100%;
   min-height: 140px;
-  background-color: #434ca0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -54,23 +53,26 @@
   font-weight: 700;
   color: #fff;
   text-align: center;
-  padding: 0px 12px;
+  padding: 12px;
 }
 .quizz-answers {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 18px 24px;
+  gap: 24px;
 }
 .quizz-single-answer {
   width: 330px;
   transition: opacity 200ms linear;
   cursor: pointer;
 }
-.quizz-single-answer img {
+.quizz-single-answer .answer-img {
   width: 100%;
-  max-height: 264px;
+  height: 264px;
   margin-bottom: 8px;
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 .quizz-single-answer h5 {
   font-size: 20px;
@@ -79,11 +81,11 @@
 .notSelected {
   opacity: 0.3;
 }
-.quizz-wrong-answer{
-  color: #FF4B4B;
+.quizz-wrong-answer {
+  color: #ff4b4b;
 }
-.quizz-right-answer{
-  color: #009C22;
+.quizz-right-answer {
+  color: #009c22;
 }
 /*----------------------------Estiliza o nível--------------------------*/
 .quizz-level .quizz-content {
@@ -135,23 +137,37 @@
 }
 
 @media (max-width: 1100px) {
+  .quizz-title {
+    height: 142px;
+    margin-bottom: 24px;
+  }
   .quizz-content,
+  .quizz-level,
   .quizz-single-answer,
+  .quizz-answers,
   .quizz-recomendation img,
   .quizz-recomendation p {
     width: 100%;
     border-radius: 0px;
   }
-  .quizz-content .quizz-question h4, .quizz-title h3 {
+  .quizz-content {
+    margin-bottom: 20px;
+  }
+  .quizz-content .quizz-question {
+    min-height: 90px;
+  }
+  .quizz-content .quizz-question h4,
+  .quizz-title h3 {
     font-size: 19px;
   }
   .quizz-answers {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    width: 100%;
   }
-  .quizz-single-answer img{
-    max-height: none;
+  .quizz-answers .answer-img{
+    width: 100%;
+    height: 0;
+    padding: 50%;
   }
   .quizz-single-answer h5 {
     font-size: 13px;
