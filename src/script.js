@@ -12,14 +12,15 @@ const url = "https://mock-api.driven.com.br/api/v4/buzzquizz/";
 const allList = document.querySelector(".all");
 const quizzPage = document.querySelector(".quizz-page");
 
+let quizzLevel;
+let quizzData;
 /*Lista com todos os quizzes*/
 let quizzList;
 
 /*Navegação pagina1 -> pagina3*/
 btnCreat.forEach((elm) => {
   elm.addEventListener("click", () => {
-    page1.classList.toggle("hidden");
-    page3.classList.toggle("hidden");
+    showHidePage(page3, page1);
   });
 });
 
@@ -49,8 +50,7 @@ function renderAllQuizz(list) {
   const addListen = document.querySelectorAll(".quizz");
   addListen.forEach((elm) => {
     elm.addEventListener("click", () => {
-      page1.classList.toggle("hidden");
-      page2.classList.toggle("hidden");
+      showHidePage(page2, page1);
       getSingleQuizz(elm);
     });
   });
@@ -74,9 +74,9 @@ function getSingleQuizz(elm) {
   const quizzId = elm.id;
   const promise = axios.get(`${url}quizzes/${elm.id}`);
   promise.then((response) => {
-    const data = response.data;
-    renderSingleQuizz(data);
-    answerOnClick();
+    quizzData = response.data;
+    renderSingleQuizz(quizzData);
+    answerOnClick(quizzData);
   });
   promise.catch((error) => console.log(error));
 }
@@ -90,7 +90,15 @@ function renderSingleQuizz(quizz) {
   const quizzTitle = document.querySelector(".quizz-title");
   quizzTitle.style.backgroundImage = `linear-gradient(0deg, rgba(0, 0, 0, 0.57), rgba(0, 0, 0, 0.57)), url(${quizz.image})`;
 
-  quizz.questions.forEach((singleQuestion) => {
+  renderQuestions(quizz.questions);
+  quizzPage.innerHTML += `
+  <div class="quizz-level">
+  </div>
+  `;
+}
+
+function renderQuestions(questions) {
+  questions.forEach((singleQuestion) => {
     let questionAnswers = "";
     let answersList = singleQuestion.answers.sort(randomizeAnswers);
 
@@ -119,9 +127,10 @@ function renderSingleQuizz(quizz) {
   });
 }
 
-function answerOnClick() {
+function answerOnClick(quizz) {
   const questionsList = document.querySelectorAll(".quizz-content");
-
+  let answeredQuestionsCounter = 0;
+  let rightAnswersCounter = 0;
   questionsList.forEach((question) => {
     const questionAnswers = question.querySelectorAll(".quizz-single-answer");
     questionAnswers.forEach((answer) => {
@@ -129,16 +138,37 @@ function answerOnClick() {
         if (verifySelected(answer)) {
           return;
         }
-
+        answeredQuestionsCounter++;
         answer.classList.add("selected");
         modifyAnswersAfterSelected(answer.parentNode);
-        setTimeout(() => {
-          console.log(question.nextElementSibling);
-          question.nextElementSibling.scrollIntoView({
-            behavior: "smooth",
-            block: "center",
-          });
-        }, 2000);
+
+        if (countRightAnswers(answer)) {
+          rightAnswersCounter++;
+        }
+
+        if (answeredQuestionsCounter === questionsList.length) {
+          setTimeout(() => {
+            showResultOfQuestions(
+              rightAnswersCounter,
+              answeredQuestionsCounter,
+              quizz.levels
+            );
+            rightAnswersCounter = 0;
+            answeredQuestionsCounter = 0;
+
+            quizzLevel.querySelector('.quizz-content').scrollIntoView({
+              behavior: "smooth",
+              block: "center",
+            });
+          }, 2000);
+        } else {
+          setTimeout(() => {
+            question.nextElementSibling.scrollIntoView({
+              behavior: "smooth",
+              block: "center",
+            });
+          }, 2000);
+        }
       });
     });
   });
@@ -169,7 +199,87 @@ function verifySelected(answer) {
     answer.classList.contains("selected")
   );
 }
+function showResultOfQuestions(rightAnswers, totalAnswered, levels) {
+  const rightAnswersPercent = Math.floor((rightAnswers / totalAnswered) * 100);
+  let resultLevel = 0;
+  levels.forEach((level) => {
+    if (
+      level.minValue <= rightAnswersPercent &&
+      resultLevel <= level.minValue
+    ) {
+      resultLevel = level.minValue;
+    }
+  });
+  const selectedLevel = levels.filter((level) => {
+    return level.minValue === resultLevel;
+  });
+  renderLevel(selectedLevel[0], rightAnswersPercent);
+  backToHome();
+  resetQuizz();
+}
+
+function renderLevel(level, rightAnswersPercent) {
+  quizzLevel = document.querySelector(".quizz-level");
+  quizzLevel.innerHTML += `
+      <section class="quizz-content">
+        <header class="quizz-question">
+          <h4>
+            ${rightAnswersPercent}% de acerto: ${level.title}!
+          </h4>
+        </header>
+        <main class="quizz-answers quizz-recomendation">
+          <img
+            src="${level.image}"
+            alt=""
+          />
+          <p>
+            ${level.text}
+          </p>
+        </main>
+      </section>
+      <div class="btn-group">
+        <button class="btn-resetQuiz">Reiniciar Quizz</button>
+        <button class="btn-backToHome">Voltar pra home</button>
+      </div>
+  
+  `;
+}
+
+function countRightAnswers(answer) {
+  return (
+    answer.classList.contains("selected") &&
+    answer.classList.contains("quizz-right-answer")
+  );
+}
 
 function randomizeAnswers() {
   return Math.random() - 0.5;
+}
+
+function showHidePage(showPage, hidePage) {
+  showPage.classList.toggle("hidden");
+  hidePage.classList.toggle("hidden");
+}
+
+function backToHome() {
+  const btnBackToHome = document.querySelector(".btn-backToHome");
+
+  btnBackToHome.addEventListener("click", () => {
+    showHidePage(page1, page2);
+  });
+}
+function resetQuizz() {
+  const btnResetQuiz = document.querySelector(".btn-resetQuiz");
+  btnResetQuiz.addEventListener("click", () => {
+    const selectAllAnswers = document.querySelectorAll(".quizz-single-answer");
+    selectAllAnswers.forEach((answer) => {
+      answer.classList.remove("selected");
+      answer.classList.remove("notSelected");
+      answer.classList.remove("quizz-right-answer");
+      answer.classList.remove("quizz-wrong-answer");
+    });
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    quizzLevel.innerHTML = "";
+    answerOnClick(quizzData);
+  });
 }
