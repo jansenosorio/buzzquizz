@@ -92,13 +92,14 @@ function isValidNumberOfLevels(levels) {
 function renderNextPage(numberQuestions) {
   for (let i = 1; i <= numberQuestions; i++) {
     creatYourQuestions.innerHTML += `
+    <div class = "container-father-questions">
       <div class="box-create-questions-closed">
         <h2 class="title-question">Pergunta ${i}</h2>
-        <ion-icon name="create-outline"></ion-icon>
+        <ion-icon name="create-outline" class="edit-icon"></ion-icon>
       </div>
       <div class="box-create-questions hidden">
         <div class="box-questions-with-title">
-          <h2 class="title-question">Pergunta 1</h2>
+          <h2 class="title-question">Pergunta ${i}</h2>
           <input
             type="text"
             class="in-title-question${i}"
@@ -161,6 +162,33 @@ function renderNextPage(numberQuestions) {
           />
         </div>
       </div>
+    </div>
       `
   }
+
+  setEventListenerToIconEdit()
+}
+
+function hiddenAndShowCreateQuestions({ target }) {
+  let containerFatherQuestions = document.querySelectorAll(
+    '.container-father-questions'
+  )
+
+  for (let i = 0; i < containerFatherQuestions.length; i++) {
+    if (!containerFatherQuestions[i].children[1].classList.contains('hidden')) {
+      containerFatherQuestions[i].children[1].classList.add('hidden')
+      containerFatherQuestions[i].children[0].classList.remove('hidden')
+    }
+  }
+  target.parentNode.classList.toggle('hidden')
+  target.parentNode.nextElementSibling.classList.toggle('hidden')
+}
+
+// Set event listener click on icons
+function setEventListenerToIconEdit() {
+  let ionIcons = document.querySelectorAll('.edit-icon')
+
+  ionIcons.forEach(elm => {
+    elm.addEventListener('click', hiddenAndShowCreateQuestions)
+  })
 }

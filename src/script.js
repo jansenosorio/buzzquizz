@@ -1,16 +1,16 @@
 // const noQuizz = document.querySelector('.no-quizz');
 // const withQuizz = document.querySelector('.with-quizz');
 
-const btnCreat = document.querySelectorAll(".btn-create")
+const btnCreat = document.querySelectorAll('.btn-create')
 
 /*Paginas para navegação com 'hidden'*/
-const page3 = document.querySelector(".container-page-3-1")
-const page1 = document.querySelector(".quizz-list-screen")
-const page2 = document.querySelector(".quizz-page-screen")
+const page3 = document.querySelector('.container-page-3-1')
+const page1 = document.querySelector('.quizz-list-screen')
+const page2 = document.querySelector('.quizz-page-screen')
 
 const url = 'https://mock-api.driven.com.br/api/v4/buzzquizz/'
-const allList = document.querySelector(".all")
-const quizzPage = document.querySelector(".quizz-page")
+const allList = document.querySelector('.all')
+const quizzPage = document.querySelector('.quizz-page')
 
 /*Lista com todos os quizzes*/
 let quizzList
@@ -31,7 +31,6 @@ function renderAllQuizz(list) {
       index.push(aux)
     }
   }
-  }
 
   for (let i = 0; i < index.length; i++) {
     allList.innerHTML += `
@@ -44,25 +43,26 @@ function renderAllQuizz(list) {
             </div>
         `
   }
-
-  //Navegação page1 -> page2
-  const addListen = document.querySelectorAll('.quizz')
-  addListen.forEach(elm => {
-    elm.addEventListener('click', () => {
-      page1.classList.toggle('hidden')
-      page2.classList.toggle('hidden')
-      getSingleQuizz(elm)
-    })
-  })
 }
+
+//Navegação page1 -> page2
+const addListen = document.querySelectorAll('.quizz')
+addListen.forEach(elm => {
+  elm.addEventListener('click', () => {
+    page1.classList.toggle('hidden')
+    page2.classList.toggle('hidden')
+    getSingleQuizz(elm)
+  })
+})
+
 /*Função quer busca o quiz de outros usuarios*/
 function getAllQuizz() {
-  const promise = axios.get(url + "quizzes");
-  promise.then((response) => {
-    quizzList = response.data;
-    renderAllQuizz(quizzList);
-  });
-  promise.catch((error) => console.log(error));
+  const promise = axios.get(url + 'quizzes')
+  promise.then(response => {
+    quizzList = response.data
+    renderAllQuizz(quizzList)
+  })
+  promise.catch(error => console.log(error))
 }
 
 getAllQuizz()
@@ -70,15 +70,15 @@ getAllQuizz()
 /*Função que busca o quizz clicado selecionado*/
 
 function getSingleQuizz(elm) {
-  window.scrollTo(0, 0);
-  const quizzId = elm.id;
-  const promise = axios.get(`${url}quizzes/${elm.id}`);
-  promise.then((response) => {
-    const data = response.data;
-    renderSingleQuizz(data);
-    answerOnClick();
-  });
-  promise.catch((error) => console.log(error));
+  window.scrollTo(0, 0)
+  const quizzId = elm.id
+  const promise = axios.get(`${url}quizzes/${elm.id}`)
+  promise.then(response => {
+    const data = response.data
+    renderSingleQuizz(data)
+    answerOnClick()
+  })
+  promise.catch(error => console.log(error))
 }
 
 function renderSingleQuizz(quizz) {
@@ -93,15 +93,17 @@ function renderSingleQuizz(quizz) {
   quizz.questions.forEach(singleQuestion => {
     let questionAnswers = ''
     let answersList = singleQuestion.answers.sort(randomizeAnswers)
+  })
+
+  answersList.forEach(answers => {
+    questionAnswers += `
+            <div class="quizz-single-answer">`
+    quizz.questions.forEach(singleQuestion => {
+      let questionAnswers = ''
+      let answersList = singleQuestion.answers.sort(randomizeAnswers)
+    })
 
     answersList.forEach(answers => {
-      questionAnswers += `
-            <div class="quizz-single-answer">
-  quizz.questions.forEach((singleQuestion) => {
-    let questionAnswers = "";
-    let answersList = singleQuestion.answers.sort(randomizeAnswers);
-
-    answersList.forEach((answers) => {
       questionAnswers += `
             <div class="quizz-single-answer" value="${answers.isCorrectAnswer}">
                 <img
@@ -110,8 +112,8 @@ function renderSingleQuizz(quizz) {
                 />
                 <h5>${answers.text}</h5>
             </div>
-            `;
-    });
+            `
+    })
 
     quizzPage.innerHTML += `
         <section class="quizz-content">
@@ -122,61 +124,61 @@ function renderSingleQuizz(quizz) {
                 ${questionAnswers}
               </main>
         </section>
-        `;
-  });
+        `
+  })
 }
 
 function answerOnClick() {
-  const questionsList = document.querySelectorAll(".quizz-content");
+  const questionsList = document.querySelectorAll('.quizz-content')
 
-  questionsList.forEach((question) => {
-    const questionAnswers = question.querySelectorAll(".quizz-single-answer");
-    questionAnswers.forEach((answer) => {
-      answer.addEventListener("click", () => {
+  questionsList.forEach(question => {
+    const questionAnswers = question.querySelectorAll('.quizz-single-answer')
+    questionAnswers.forEach(answer => {
+      answer.addEventListener('click', () => {
         if (verifySelected(answer)) {
-          return;
+          return
         }
 
-        answer.classList.add("selected");
-        modifyAnswersAfterSelected(answer.parentNode);
+        answer.classList.add('selected')
+        modifyAnswersAfterSelected(answer.parentNode)
         setTimeout(() => {
-          console.log(question.nextElementSibling);
+          console.log(question.nextElementSibling)
           question.nextElementSibling.scrollIntoView({
-            behavior: "smooth",
-            block: "center",
-          });
-        }, 2000);
-      });
-    });
-  });
+            behavior: 'smooth',
+            block: 'center'
+          })
+        }, 2000)
+      })
+    })
+  })
 }
 
 function modifyAnswersAfterSelected(answersList) {
-  const questionAnswers = answersList.querySelectorAll(".quizz-single-answer");
-  questionAnswers.forEach((answer) => {
+  const questionAnswers = answersList.querySelectorAll('.quizz-single-answer')
+  questionAnswers.forEach(answer => {
     if (!verifySelected(answer)) {
-      answer.classList.add("notSelected");
+      answer.classList.add('notSelected')
     }
-    const answerValue = answer.getAttribute("value") == "true";
-    verifyRightOrWrong(answerValue, answer);
-  });
+    const answerValue = answer.getAttribute('value') == 'true'
+    verifyRightOrWrong(answerValue, answer)
+  })
 }
 
 function verifyRightOrWrong(answerValue, answer) {
   if (answerValue) {
-    answer.classList.add("quizz-right-answer");
+    answer.classList.add('quizz-right-answer')
   } else {
-    answer.classList.add("quizz-wrong-answer");
+    answer.classList.add('quizz-wrong-answer')
   }
 }
 
 function verifySelected(answer) {
   return (
-    answer.classList.contains("notSelected") ||
-    answer.classList.contains("selected")
-  );
+    answer.classList.contains('notSelected') ||
+    answer.classList.contains('selected')
+  )
 }
 
 function randomizeAnswers() {
-  return Math.random() - 0.5;
+  return Math.random() - 0.5
 }
