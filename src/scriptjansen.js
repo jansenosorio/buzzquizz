@@ -16,6 +16,27 @@ let inUrl32 = ''
 let correctAnswer = ''
 let incorrectAnswer = ''
 
+//Creating object for API ponsting
+quizz = {
+  title: '',
+  image: '',
+  questions: [],
+  levels: []
+}
+
+let question = {
+  title: '',
+  color: '',
+  answers: []
+}
+
+let answer = {
+  text: '',
+  image: '',
+  isCorrectAnswer: ''
+}
+
+
 function getElementsFromHtml() {
   // get elements from html
   containerScreen31 = document.querySelector('.container-page-3-1')
@@ -36,13 +57,21 @@ function getElementsFromHtml() {
   incorrectAnswer = document.querySelectorAll('.in-incorrect-answer')
   inUrl32 = document.querySelectorAll('.in-url-img')
 
+  inTitleLevels = document.querySelectorAll('.in-title-levels')
+  inPorcentMin = document.querySelectorAll('.in-porcent-min')
+  inLevelsDescription = document.querySelectorAll('.in-levels-description')
+  inUrlImgLevels = document.querySelectorAll('.in-url-img-levels')
+  inPorcentMin = document.querySelectorAll('.in-porcent-min')
+
   // Get buttons
   btCreateQuestions = document.querySelector('.bt-create-questions')
   btCreateLevels = document.querySelector('.bt-create-levels')
+  btFinishQuizz = document.querySelector('.bt-finish-quizz')
 
   // Add EventListener to Button
   btCreateQuestions.addEventListener('click', validationIputData31)
   btCreateLevels.addEventListener('click', validationIputData32)
+  btFinishQuizz.addEventListener('click', validationIputData33)
 }
 
 getElementsFromHtml()
@@ -57,6 +86,12 @@ function validationIputData31() {
     isValidNumberOfQuestions(inNumberQuestions) === true &&
     isValidNumberOfLevels(inNumberLevels) === true
   ) {
+
+    // Add input values to quizz object
+    quizz.title = inTitle
+    quizz.image = inUrl
+
+
     containerScreen31.classList.toggle('hidden')
     containerScreen32.classList.toggle('hidden')
     renderNextPage(inNumberQuestions)
@@ -65,7 +100,7 @@ function validationIputData31() {
   }
 }
 
-// Function to validation iput data page 3.2, if ok, go to next page
+// Function to validation input data page 3.2, if ok, go to next page
 function validationIputData32() {
   getElementsFromHtml()
 
@@ -76,6 +111,57 @@ function validationIputData32() {
     isCorrectAnswerEmpty(correctAnswer) === true &&
     isIncorrectAnswerEmpty(incorrectAnswer) === true
   ) {
+
+
+    for (let i = 0; i < textQuestion.length; i++) {
+      question.title = textQuestion[i].value;
+      question.color = hexadecimal[i].value;
+
+      let aux = []
+
+      let ans = document.querySelectorAll(`.answer${i}`)
+      let imgUrl = document.querySelectorAll(`.img${i}`)
+
+      for (let j = 0; j < ans.length; j++) {
+
+
+        if (ans[j].value != '') {
+          answer.text = ans[j].value
+          answer.image = imgUrl[j].value
+
+          if (ans[j].classList.contains('correct')) {
+            aux.push(
+              {
+                text: ans[j].value,
+                image: imgUrl[j].value,
+                isCorrectAnswer: true
+              })
+          }
+          else {
+            aux.push(
+              {
+                text: ans[j].value,
+                image: imgUrl[j].value,
+                isCorrectAnswer: false
+              })
+          }
+        }
+      }
+
+      quizz.questions.push(
+        {
+          title: textQuestion[i].value,
+          color: hexadecimal[i].value,
+          answers: aux
+        })
+
+    }
+
+
+
+
+
+
     containerScreen32.classList.toggle('hidden')
     containerScreen33.classList.toggle('hidden')
     renderNextPage33(inNumberLevels)
@@ -86,6 +172,7 @@ function validationIputData32() {
 
 // Function to validation iput data page 3.3, if ok, go to next page
 function validationIputData33() {
+  getElementsFromHtml();
   if (
     textLevelsValidation() === true &&
     MinHitPercentage() === true &&
@@ -93,7 +180,22 @@ function validationIputData33() {
     minCharactersLevelsDescription() === true &&
     isOneLevelZeroPercent() === true
   ) {
+
+    for (let i = 0; i < inTitleLevels.length; i++) {
+      quizz.levels.push(
+        {
+          title: inTitleLevels[i].value,
+          image: inUrlImgLevels[i].value,
+          text: inLevelsDescription[i].value,
+          minValue: inPorcentMin[i].value
+      }
+      )
+    }
+
     console.log('tudo certo')
+
+    SendQuizzToServer()
+
   } else {
     alert('Favor verificar os campos, há algo errado')
   }
@@ -251,12 +353,12 @@ function renderNextPage(numberQuestions) {
           <h2 class="title-question">Resposta correta</h2>
           <input
             type="text"
-            class="in-correct-answer"
+            class="in-correct-answer correct answer${i - 1}"
             placeholder="Resposta correta"
           />
           <input
             type="text"
-            class="in-url-img"
+            class="in-url-img img${i - 1}"
             data-img = 'url-correct-img'
             placeholder="URL da imagem"
           />
@@ -265,13 +367,13 @@ function renderNextPage(numberQuestions) {
           <h2 class="title-question">Resposta incorreta</h2>
           <input
             type="text"
-            class="in-incorrect-answer"
+            class="in-incorrect-answer incorrect answer${i - 1}"
             data-incorrect-answer = "1"
             placeholder="Resposta incorreta 1"
           />
           <input
             type="text"
-            class="in-url-img"
+            class="in-url-img img${i - 1}"
             data-img = 'url-incorrect-img-1'
             placeholder="URL da imagem 1"
           />
@@ -279,13 +381,13 @@ function renderNextPage(numberQuestions) {
         <div class="box-questions-without-title">
           <input
             type="text"
-            class="in-incorrect-answer"
+            class="in-incorrect-answer incorrect answer${i - 1}"
             data-incorrect-answer = "2"
             placeholder="Resposta incorreta 2"
           />
           <input
             type="text"
-            class="in-url-img"
+            class="in-url-img img${i - 1}"
             data-img = 'url-incorrect-img-2'
             placeholder="URL da imagem 2"
           />
@@ -293,13 +395,13 @@ function renderNextPage(numberQuestions) {
         <div class="box-questions-without-title">
           <input
             type="text"
-            class="in-incorrect-answer"
+            class="in-incorrect-answer incorrect answer${i - 1}"
             data-incorrect-answer = "3"
             placeholder="Resposta incorreta 3"
           />
           <input
             type="text"
-            class="in-url-img"
+            class="in-url-img img${i - 1}"
             data-img = 'url-incorrect-img-3'
             placeholder="URL da imagem 3"
           />
@@ -352,7 +454,7 @@ function renderNextPage33(numberLevels) {
     <div class="container-father-levels">
     <div class="box-create-levels-closed">
       <h2 class="title-box">Nível ${i}</h2>
-      <ion-icon name="create-outline"></ion-icon>
+      <ion-icon class="edit-levels" name="create-outline"></ion-icon>
     </div>
     <div class="box-create-levels hidden">
       <div class="box-levels">
@@ -404,7 +506,6 @@ function hiddenAndShowCreatelevels({ target }) {
 
 // Function to check min text characters
 function textLevelsValidation() {
-  let inTitleLevels = document.querySelectorAll('.in-title-levels')
   let count = ''
 
   inTitleLevels.forEach(elm => {
@@ -422,7 +523,6 @@ function textLevelsValidation() {
 
 // Function to check minimum percentage
 function MinHitPercentage() {
-  let inPorcentMin = document.querySelectorAll('.in-porcent-min')
   let count = ''
 
   inPorcentMin.forEach(elm => {
@@ -440,7 +540,6 @@ function MinHitPercentage() {
 
 // Function to check if url is valid
 function isUrl33() {
-  let inUrlImgLevels = document.querySelectorAll('.in-url-img-levels')
   let count = ''
   let filledIput = ''
   inUrlImgLevels.forEach(elm => {
@@ -464,7 +563,6 @@ function isUrl33() {
 
 // Function to check min characters of description
 function minCharactersLevelsDescription() {
-  let inLevelsDescription = document.querySelectorAll('.in-levels-description')
   let count = ''
 
   inLevelsDescription.forEach(elm => {
@@ -482,7 +580,6 @@ function minCharactersLevelsDescription() {
 
 // Function to check if has a zero
 function isOneLevelZeroPercent() {
-  let inPorcentMin = document.querySelectorAll('.in-porcent-min')
   let count = 0
 
   inPorcentMin.forEach(elm => {
@@ -496,4 +593,29 @@ function isOneLevelZeroPercent() {
   } else {
     return false
   }
+}
+
+
+function SendQuizzToServer() {
+  const promise = axios.post('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes', quizz)
+  promise.then(response => {
+    const data = response.data
+    let listId = []
+
+    if(localStorage.getItem('id')){
+      listId = localStorage.getItem('id')
+      let pars = JSON.parse(listId)
+      pars.push(data.id)
+      let strin = JSON.stringify(pars)
+      localStorage.setItem('id', strin)
+    }
+    else {
+      listId.push(data.id)
+      let strin = JSON.stringify(listId)
+      localStorage.setItem('id', strin)
+
+    }
+    
+  })
+  promise.catch(error => console.log(error))
 }
