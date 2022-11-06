@@ -5,8 +5,10 @@ let inUrl = ''
 let inNumberQuestions = ''
 let inNumberLevels = ''
 let btCreateQuestions = ''
+let btCreateLevels = ''
 let containerScreen31 = ''
 let containerScreen32 = ''
+let containerScreen33 = ''
 let creatYourQuestions = ''
 let textQuestion = ''
 let hexadecimal = ''
@@ -18,6 +20,7 @@ function getElementsFromHtml() {
   // get elements from html
   containerScreen31 = document.querySelector('.container-page-3-1')
   containerScreen32 = document.querySelector('.container-page-3-2')
+  containerScreen33 = document.querySelector('.container-page-3-3')
   creatYourQuestions = document.querySelector('.create-your-questions')
 
   // Get input elements from HTML
@@ -35,9 +38,11 @@ function getElementsFromHtml() {
 
   // Get buttons
   btCreateQuestions = document.querySelector('.bt-create-questions')
+  btCreateLevels = document.querySelector('.bt-create-levels')
 
   // Add EventListener to Button
   btCreateQuestions.addEventListener('click', validationIputData31)
+  btCreateLevels.addEventListener('click', validationIputData32)
 }
 
 getElementsFromHtml()
@@ -60,6 +65,7 @@ function validationIputData31() {
   }
 }
 
+// Function to validation iput data page 3.2, if ok, go to next page
 function validationIputData32() {
   getElementsFromHtml()
 
@@ -70,9 +76,26 @@ function validationIputData32() {
     isCorrectAnswerEmpty(correctAnswer) === true &&
     isIncorrectAnswerEmpty(incorrectAnswer) === true
   ) {
+    containerScreen32.classList.toggle('hidden')
+    containerScreen33.classList.toggle('hidden')
+    renderNextPage33(inNumberLevels)
+  } else {
+    alert('Favor verificar os campos, pois há um erro')
+  }
+}
+
+// Function to validation iput data page 3.3, if ok, go to next page
+function validationIputData33() {
+  if (
+    textLevelsValidation() === true &&
+    MinHitPercentage() === true &&
+    isUrl33() === true &&
+    minCharactersLevelsDescription() === true &&
+    isOneLevelZeroPercent() === true
+  ) {
     console.log('tudo certo')
   } else {
-    console.log('algo não está certo')
+    alert('Favor verificar os campos, há algo errado')
   }
 }
 
@@ -146,7 +169,7 @@ function isHexadecimalColor(hexadecimal) {
     return false
   }
 }
-
+// Check if quizz has a correct answer and return false or true
 function isCorrectAnswerEmpty(answer) {
   let count = ''
   answer.forEach(elm => {
@@ -161,7 +184,7 @@ function isCorrectAnswerEmpty(answer) {
     return false
   }
 }
-
+// Check if quizz has a min number of incorrect answer and return false or true
 function isIncorrectAnswerEmpty(incorrectAnswer) {
   let count = ''
   incorrectAnswer.forEach(elm => {
@@ -177,6 +200,7 @@ function isIncorrectAnswerEmpty(incorrectAnswer) {
   }
 }
 
+// Check if link is a valid url and return false or true
 function isUrl32(url32) {
   let count = ''
   let filledIput = ''
@@ -199,7 +223,7 @@ function isUrl32(url32) {
   }
 }
 
-// Function to render the next page
+// Function to render the next page 3.2
 
 function renderNextPage(numberQuestions) {
   for (let i = 1; i <= numberQuestions; i++) {
@@ -288,7 +312,7 @@ function renderNextPage(numberQuestions) {
   setEventListenerToIconEdit()
 }
 
-// Function to hidden and show selected inputs
+// Function to hidden and show selected inputs 3.2
 
 function hiddenAndShowCreateQuestions({ target }) {
   let containerFatherQuestions = document.querySelectorAll(
@@ -308,8 +332,168 @@ function hiddenAndShowCreateQuestions({ target }) {
 // Set event listener click on icons
 function setEventListenerToIconEdit() {
   let ionIcons = document.querySelectorAll('.edit-icon')
+  let ionIconsLevels = document.querySelectorAll('.edit-levels')
 
   ionIcons.forEach(elm => {
     elm.addEventListener('click', hiddenAndShowCreateQuestions)
   })
+
+  ionIconsLevels.forEach(elm => {
+    elm.addEventListener('click', hiddenAndShowCreatelevels)
+  })
+}
+
+// Function to render page 3.3
+function renderNextPage33(numberLevels) {
+  let containerBoxLevels = document.querySelector('.container-box-levels')
+
+  for (let i = 1; i <= numberLevels; i++) {
+    containerBoxLevels.innerHTML += `
+    <div class="container-father-levels">
+    <div class="box-create-levels-closed">
+      <h2 class="title-box">Nível ${i}</h2>
+      <ion-icon name="create-outline"></ion-icon>
+    </div>
+    <div class="box-create-levels hidden">
+      <div class="box-levels">
+        <h2 class="title-box">Nível ${i}</h2>
+        <input
+          type="text"
+          class="in-title-levels"
+          placeholder="Título do nível"
+        />
+        <input
+          type="text"
+          class="in-porcent-min"
+          placeholder="% de acerto mínima"
+        />
+        <input
+          type="text"
+          class="in-url-img-levels"
+          placeholder="URL da imagem do nível"
+        />
+        <input
+          type="text"
+          class="in-levels-description"
+          placeholder="Descrição do nível"
+        />
+      </div>
+    </div>
+  </div>
+    `
+  }
+
+  setEventListenerToIconEdit()
+}
+
+// Function to hidden and show create levels
+function hiddenAndShowCreatelevels({ target }) {
+  let containerFatherLevels = document.querySelectorAll(
+    '.container-father-levels'
+  )
+
+  for (let i = 0; i < containerFatherLevels.length; i++) {
+    if (!containerFatherLevels[i].children[1].classList.contains('hidden')) {
+      containerFatherLevels[i].children[1].classList.add('hidden')
+      containerFatherLevels[i].children[0].classList.remove('hidden')
+    }
+  }
+  target.parentNode.classList.toggle('hidden')
+  target.parentNode.nextElementSibling.classList.toggle('hidden')
+}
+
+// Function to check min text characters
+function textLevelsValidation() {
+  let inTitleLevels = document.querySelectorAll('.in-title-levels')
+  let count = ''
+
+  inTitleLevels.forEach(elm => {
+    if (elm.value.length > 10) {
+      count++
+    }
+  })
+
+  if (count === inTitleLevels.length) {
+    return true
+  } else {
+    return false
+  }
+}
+
+// Function to check minimum percentage
+function MinHitPercentage() {
+  let inPorcentMin = document.querySelectorAll('.in-porcent-min')
+  let count = ''
+
+  inPorcentMin.forEach(elm => {
+    if (Number(elm.value) >= 0 && Number(elm.value) <= 100) {
+      count++
+    }
+  })
+
+  if (count === inPorcentMin.length) {
+    return true
+  } else {
+    return false
+  }
+}
+
+// Function to check if url is valid
+function isUrl33() {
+  let inUrlImgLevels = document.querySelectorAll('.in-url-img-levels')
+  let count = ''
+  let filledIput = ''
+  inUrlImgLevels.forEach(elm => {
+    if (elm.value !== '') {
+      filledIput++
+      try {
+        let url = new URL(elm.value)
+        count++
+      } catch (err) {
+        console.log(elm.value)
+      }
+    }
+  })
+
+  if (count === filledIput) {
+    return true
+  } else {
+    return false
+  }
+}
+
+// Function to check min characters of description
+function minCharactersLevelsDescription() {
+  let inLevelsDescription = document.querySelectorAll('.in-levels-description')
+  let count = ''
+
+  inLevelsDescription.forEach(elm => {
+    if (elm.value.length > 30) {
+      count++
+    }
+  })
+
+  if (count === inLevelsDescription.length) {
+    return true
+  } else {
+    return false
+  }
+}
+
+// Function to check if has a zero
+function isOneLevelZeroPercent() {
+  let inPorcentMin = document.querySelectorAll('.in-porcent-min')
+  let count = 0
+
+  inPorcentMin.forEach(elm => {
+    if (Number(elm.value) == 0) {
+      count++
+    }
+  })
+
+  if (count > 0) {
+    return true
+  } else {
+    return false
+  }
 }
