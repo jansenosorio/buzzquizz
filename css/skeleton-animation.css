@@ -1,0 +1,45 @@
+/*Skeleton loading*/
+.skeleton-loading{
+    width: 1051px;
+    display: flex;
+    gap: 12px;
+}
+
+.skeleton-quizz {
+    display: flex;
+    width: 350px;
+    aspect-ratio: 4/2;
+    background-color: #D4D4D4;
+    padding: 20px;
+    align-items: flex-end;
+
+    border-radius: 5px;
+    
+    animation: skeleton-loading 0.5s infinite alternate;
+}
+.skeleton{
+    opacity: .7;
+    animation: skeleton-loading 0.5s infinite alternate;
+}
+.skeleton-text{
+    width: 80%;
+    height: 20px;
+    border-radius: 5px;
+
+    background-color: #b8bdbe;
+}
+
+@keyframes skeleton-loading {
+    0% {
+        background-color: #dfe3e7;
+    }
+    100% {
+        background-color: #c5cdd4;
+    }
+}
+
+/*Class hidden*/
+
+.hidden {
+    display: none;
+  }

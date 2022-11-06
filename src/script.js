@@ -1,21 +1,21 @@
-const noQuizz = document.querySelector('.no-quizz');
+const noQuizz = document.querySelector(".no-quizz");
 // const withQuizz = document.querySelector('.with-quizz');
 
-const btnCreat = document.querySelectorAll('.btn-create')
+const btnCreat = document.querySelectorAll(".btn-create");
 
 /*Paginas para navegação com 'hidden'*/
-const page3 = document.querySelector('.container-page-3-1')
-const page1 = document.querySelector('.quizz-list-screen')
-const page2 = document.querySelector('.quizz-page-screen')
+const page3 = document.querySelector(".container-page-3-1");
+const page1 = document.querySelector(".quizz-list-screen");
+const page2 = document.querySelector(".quizz-page-screen");
 
-const url = 'https://mock-api.driven.com.br/api/v4/buzzquizz/'
-const allList = document.querySelector('.all')
-const quizzPage = document.querySelector('.quizz-page')
+const url = "https://mock-api.driven.com.br/api/v4/buzzquizz/";
+const allList = document.querySelector(".all");
+const quizzPage = document.querySelector(".quizz-page");
 
 let quizzLevel;
 let quizzData;
 /*Lista com todos os quizzes*/
-let quizzList
+let quizzList;
 /*Navegação pagina1 -> pagina3*/
 btnCreat.forEach((elm) => {
   elm.addEventListener("click", () => {
@@ -23,26 +23,17 @@ btnCreat.forEach((elm) => {
   });
 });
 
-/*Loading*/
-for(let i = 0; i < 9; i++){
-  allList.innerHTML += `
-    <div class="skeleton-quizz">
-      <div class="skeleton-text"></div>
-    </div>
-  `
-}
-
 /*Função para renderizar os quizzes de outros usuarios*/
 function renderAllQuizz(list) {
-  let index = []
+  let index = [];
   while (index.length < 9) {
-    let aux = Math.floor(Math.random() * list.length)
+    let aux = Math.floor(Math.random() * list.length);
     if (!index.includes(aux)) {
-      index.push(aux)
+      index.push(aux);
     }
   }
 
-  allList.innerHTML = ""
+  allList.innerHTML = "";
 
   for (let i = 0; i < index.length; i++) {
     allList.innerHTML += `
@@ -53,7 +44,7 @@ function renderAllQuizz(list) {
                 ${list[index[i]].title}
                 </h3>
             </div>
-        `
+        `;
   }
 
   //Navegação page1 -> page2
@@ -67,34 +58,68 @@ function renderAllQuizz(list) {
 }
 
 //Navegação page1 -> page2
-const addListen = document.querySelectorAll('.quizz')
-addListen.forEach(elm => {
-  elm.addEventListener('click', () => {
-    page1.classList.toggle('hidden')
-    page2.classList.toggle('hidden')
-    getSingleQuizz(elm)
-  })
-})
+const addListen = document.querySelectorAll(".quizz");
+addListen.forEach((elm) => {
+  elm.addEventListener("click", () => {
+    page1.classList.toggle("hidden");
+    page2.classList.toggle("hidden");
+    getSingleQuizz(elm);
+  });
+});
 
 /*Função quer busca o quiz de outros usuarios*/
 function getAllQuizz() {
-  const promise = axios.get(url + 'quizzes')
-  promise.then(response => {
-    quizzList = response.data
-    renderAllQuizz(quizzList)
+  allList.innerHTML = '';
+  /*Loading*/
+  for (let i = 0; i < 9; i++) {
+    allList.innerHTML += `
+    <div class="skeleton-quizz">
+      <div class="skeleton-text"></div>
+    </div>
+  `;
+  }
+  const promise = axios.get(url + "quizzes");
+  promise.then((response) => {
+    quizzList = response.data;
+    renderAllQuizz(quizzList);
 
-    document.querySelector('.skeleton-loading').classList.add('hidden')
-    noQuizz.classList.remove('hidden')
-  })
-  promise.catch(error => console.log(error))
+    document.querySelector(".skeleton-loading").classList.add("hidden");
+    noQuizz.classList.remove("hidden");
+  });
+  promise.catch((error) => console.log(error));
 }
 
-getAllQuizz()
+getAllQuizz();
 
 /*Função que busca o quizz clicado selecionado*/
 
 function getSingleQuizz(elm) {
   window.scrollTo(0, 0);
+  quizzPage.innerHTML=`
+      <header class="quizz-title skeleton">
+        <h3 class="skeleton-text"></h3>
+      </header>
+  `;
+  for(let i = 0; i<3; i++){
+    quizzPage.innerHTML +=`
+      <section class="quizz-content">
+        <header class="quizz-question skeleton">
+          <h4 class="skeleton skeleton-text"></h4>
+        </header>
+        <main class="quizz-answers">
+          <div class="quizz-single-answer">
+            <div class="answer-img skeleton"></div>
+            <h5 class="skeleton skeleton-text"></h5>
+          </div>
+          <div class="quizz-single-answer">       
+            <div class="answer-img skeleton"></div>
+            <h5 class="skeleton skeleton-text"></h5>
+          </div>
+        </main>
+      </section>
+    `;
+  }
+
   const quizzId = elm.id;
   const promise = axios.get(`${url}quizzes/${elm.id}`);
   promise.then((response) => {
@@ -106,13 +131,14 @@ function getSingleQuizz(elm) {
 }
 
 function renderSingleQuizz(quizz) {
+
   quizzPage.innerHTML = `
         <header class="quizz-title">
             <h3>${quizz.title}</h3>
         </header>
     `;
-  const quizzTitle = document.querySelector('.quizz-title')
-  quizzTitle.style.backgroundImage = `linear-gradient(0deg, rgba(0, 0, 0, 0.57), rgba(0, 0, 0, 0.57)), url(${quizz.image})`
+  const quizzTitle = document.querySelector(".quizz-title");
+  quizzTitle.style.backgroundImage = `linear-gradient(0deg, rgba(0, 0, 0, 0.57), rgba(0, 0, 0, 0.57)), url(${quizz.image})`;
 
   renderQuestions(quizz.questions);
   quizzPage.innerHTML += `
@@ -135,8 +161,8 @@ function renderQuestions(questions) {
                 <div class="answer-img" style="background-image:url(${answers.image})"></div>
                 <h5>${answers.text}</h5>
             </div>
-            `
-    })
+            `;
+    });
 
     quizzPage.innerHTML += `
         <section class="quizz-content">
@@ -147,8 +173,8 @@ function renderQuestions(questions) {
                 ${questionAnswers}
               </main>
         </section>
-        `
-  })
+        `;
+  });
 }
 
 function answerOnClick(quizz) {
@@ -160,7 +186,7 @@ function answerOnClick(quizz) {
     questionAnswers.forEach((answer) => {
       answer.addEventListener("click", () => {
         if (verifySelected(answer)) {
-          return
+          return;
         }
         answeredQuestionsCounter++;
         answer.classList.add("selected");
@@ -180,7 +206,7 @@ function answerOnClick(quizz) {
             rightAnswersCounter = 0;
             answeredQuestionsCounter = 0;
 
-            quizzLevel.querySelector('.quizz-content').scrollIntoView({
+            quizzLevel.querySelector(".quizz-content").scrollIntoView({
               behavior: "smooth",
               block: "center",
             });
@@ -199,29 +225,29 @@ function answerOnClick(quizz) {
 }
 
 function modifyAnswersAfterSelected(answersList) {
-  const questionAnswers = answersList.querySelectorAll('.quizz-single-answer')
-  questionAnswers.forEach(answer => {
+  const questionAnswers = answersList.querySelectorAll(".quizz-single-answer");
+  questionAnswers.forEach((answer) => {
     if (!verifySelected(answer)) {
-      answer.classList.add('notSelected')
+      answer.classList.add("notSelected");
     }
-    const answerValue = answer.getAttribute('value') == 'true'
-    verifyRightOrWrong(answerValue, answer)
-  })
+    const answerValue = answer.getAttribute("value") == "true";
+    verifyRightOrWrong(answerValue, answer);
+  });
 }
 
 function verifyRightOrWrong(answerValue, answer) {
   if (answerValue) {
-    answer.classList.add('quizz-right-answer')
+    answer.classList.add("quizz-right-answer");
   } else {
-    answer.classList.add('quizz-wrong-answer')
+    answer.classList.add("quizz-wrong-answer");
   }
 }
 
 function verifySelected(answer) {
   return (
-    answer.classList.contains('notSelected') ||
-    answer.classList.contains('selected')
-  )
+    answer.classList.contains("notSelected") ||
+    answer.classList.contains("selected")
+  );
 }
 function showResultOfQuestions(rightAnswers, totalAnswered, levels) {
   const rightAnswersPercent = Math.floor((rightAnswers / totalAnswered) * 100);
@@ -329,7 +355,7 @@ function countRightAnswers(answer) {
 }
 
 function randomizeAnswers() {
-  return Math.random() - 0.5
+  return Math.random() - 0.5;
 }
 
 function showHidePage(showPage, hidePage) {
@@ -370,6 +396,8 @@ function backToHome() {
 
   btnBackToHome.addEventListener("click", () => {
     showHidePage(page1, page2);
+    getAllQuizz();
+    window.scrollTo({ top: 0 });
   });
 }
 function resetQuizz() {
