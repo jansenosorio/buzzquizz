@@ -180,6 +180,8 @@ function validationIputData33() {
     minCharactersLevelsDescription() === true &&
     isOneLevelZeroPercent() === true
   ) {
+    document.querySelector('.container-page-final').classList.toggle('hidden');
+    containerScreen33.classList.toggle('hidden');
 
     for (let i = 0; i < inTitleLevels.length; i++) {
       quizz.levels.push(
