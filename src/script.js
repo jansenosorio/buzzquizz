@@ -47,25 +47,19 @@ function renderAllQuizz(list) {
             </div>
         `;
   }
-
-  //Navegação page1 -> page2
-  const addListen = document.querySelectorAll(".quizz");
-  addListen.forEach((elm) => {
-    elm.addEventListener("click", () => {
-      showHidePage(page2, page1);
-      getSingleQuizz(elm);
-    });
-  });
 }
 
-//Navegação page1 -> page2
-const addListen = document.querySelectorAll(".quizz");
-addListen.forEach((elm) => {
-  elm.addEventListener("click", () => {
-    page1.classList.toggle("hidden");
-    page2.classList.toggle("hidden");
-    getSingleQuizz(elm);
-  });
+const btnAccess = document.querySelector(".bt-access-quizz");
+btnAccess.addEventListener("click", () => {
+  document.querySelector(".container-page-final").classList.toggle("hidden");
+  page2.classList.toggle("hidden");
+
+  let usrIDS = {
+    id: "",
+  };
+
+  usrIDS.id = JSON.parse(localStorage.getItem("id"));
+  getSingleQuizz(usrIDS);
 });
 
 /*Função quer busca o quiz de outros usuarios*/
@@ -83,28 +77,52 @@ function getAllQuizz() {
   promise.then((response) => {
     quizzList = response.data;
     renderAllQuizz(quizzList);
-    renderUserQuizz();
+    renderUserQuizz(quizzList);
+    //Navegação page1 -> page2
+    const addListen = document.querySelectorAll(".quizz");
+    addListen.forEach((elm) => {
+      elm.addEventListener("click", () => {
+        showHidePage(page2, page1);
+        getSingleQuizz(elm);
+      });
+    });
   });
   promise.catch((error) => console.log(error));
 }
 
 /*Função que renderiza quizz do usuario*/
-function renderUserQuizz() {
+function renderUserQuizz(list) {
   if (localStorage.getItem("id")) {
-    document.querySelector(".skeleton-loading").classList.add("hidden");
-    withQuizz.classList.remove("hidden");
+    let aux = 0;
 
     let usrIDS = JSON.parse(localStorage.getItem("id"));
-    quizzList.forEach((elm) => {
+
+    list.forEach((elm) => {
       if (usrIDS.includes(elm.id)) {
+        aux++;
+        if (!noQuizz.classList.contains("hidden")) {
+          noQuizz.classList.add("hidden");
+        }
+        document.querySelector(".skeleton-loading").classList.add("hidden");
+        withQuizz.classList.remove("hidden");
+
         userList.innerHTML += `
           <div id="${elm.id}" style="background-image: url(${elm.image})" 
-            class="quizz">
+            class="quizz usr">
             <h3>
             ${elm.title}
             </h3>
+            <div class="menu">
+              <ion-icon class="icon-menu" name="create-outline"></ion-icon>
+              <ion-icon onclick="deleteQuizz(this)" class="icon-menu" name="trash-outline"></ion-icon>
+            </div>
           </div>
         `;
+      } else {
+        if (aux == 0) {
+          document.querySelector(".skeleton-loading").classList.add("hidden");
+          noQuizz.classList.remove("hidden");
+        }
       }
     });
   } else {
@@ -371,7 +389,9 @@ function resetQuizz() {
 
 function getLightness(hexColor) {
   hexColor = hexColor.replace(/#/g, "");
-  var result = /^([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})[\da-z]{0,0}$/i.exec(hexColor);
+  var result = /^([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})[\da-z]{0,0}$/i.exec(
+    hexColor
+  );
   const r = parseInt(result[1], 16) / 255;
   const g = parseInt(result[2], 16) / 255;
   const b = parseInt(result[3], 16) / 255;
@@ -380,4 +400,36 @@ function getLightness(hexColor) {
   let lightness = ((max + min) / 2) * 100;
   lightness = Math.round(lightness);
   return lightness;
+}
+
+function deleteQuizz(icone) {
+  let id = icone.parentNode.parentNode.id;
+  console.log(icone.parentNode.parentNode.id);
+  let key = localStorage.getItem(id);
+  if (confirm()) {
+    const promise = axios.delete(
+      `https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${id}`,
+      {
+        headers: {
+          "Secret-Key": key,
+        },
+      }
+    );
+    promise.then(() => {
+      localStorage.removeItem(id);
+
+      let usrIDS = JSON.parse(localStorage.getItem("id"));
+      let newIDS = arrayRemove(usrIDS, id);
+      localStorage.setItem("id", JSON.stringify(newIDS));
+
+      window.location.reload();
+    });
+    promise.catch((error) => console.log(error));
+  }
+}
+
+function arrayRemove(array, value) {
+  return array.filter(function (elm) {
+    return elm != value;
+  });
 }
