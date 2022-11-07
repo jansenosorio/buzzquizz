@@ -1,5 +1,5 @@
 const noQuizz = document.querySelector(".no-quizz");
-const withQuizz = document.querySelector('.with-quizz');
+const withQuizz = document.querySelector(".with-quizz");
 
 const btnCreat = document.querySelectorAll(".btn-create");
 
@@ -10,7 +10,7 @@ const page2 = document.querySelector(".quizz-page-screen");
 
 const url = "https://mock-api.driven.com.br/api/v4/buzzquizz/";
 const allList = document.querySelector(".all");
-const userList = document.querySelector('.user');
+const userList = document.querySelector(".user");
 const quizzPage = document.querySelector(".quizz-page");
 
 let quizzLevel;
@@ -38,8 +38,9 @@ function renderAllQuizz(list) {
 
   for (let i = 0; i < index.length; i++) {
     allList.innerHTML += `
-            <div id="${list[index[i]].id}" style="background-image: url(${list[index[i]].image
-      })" class="quizz">
+            <div id="${list[index[i]].id}" style="background-image: url(${
+      list[index[i]].image
+    })" class="quizz">
                 <h3>
                 ${list[index[i]].title}
                 </h3>
@@ -69,7 +70,7 @@ addListen.forEach((elm) => {
 
 /*Função quer busca o quiz de outros usuarios*/
 function getAllQuizz() {
-  allList.innerHTML = '';
+  allList.innerHTML = "";
   /*Loading*/
   for (let i = 0; i < 9; i++) {
     allList.innerHTML += `
@@ -83,19 +84,18 @@ function getAllQuizz() {
     quizzList = response.data;
     renderAllQuizz(quizzList);
     renderUserQuizz();
-
   });
   promise.catch((error) => console.log(error));
 }
 
 /*Função que renderiza quizz do usuario*/
 function renderUserQuizz() {
-  if (localStorage.getItem('id')) {
+  if (localStorage.getItem("id")) {
     document.querySelector(".skeleton-loading").classList.add("hidden");
     withQuizz.classList.remove("hidden");
 
-    let usrIDS = JSON.parse(localStorage.getItem('id'));
-    quizzList.forEach(elm => {
+    let usrIDS = JSON.parse(localStorage.getItem("id"));
+    quizzList.forEach((elm) => {
       if (usrIDS.includes(elm.id)) {
         userList.innerHTML += `
           <div id="${elm.id}" style="background-image: url(${elm.image})" 
@@ -104,18 +104,10 @@ function renderUserQuizz() {
             ${elm.title}
             </h3>
           </div>
-        `
+        `;
       }
-    })
-    const addListen = document.querySelectorAll(".quizz");
-    addListen.forEach((elm) => {
-      elm.addEventListener("click", () => {
-        showHidePage(page2, page1);
-        getSingleQuizz(elm);
-      });
     });
-  }
-  else {
+  } else {
     document.querySelector(".skeleton-loading").classList.add("hidden");
     noQuizz.classList.remove("hidden");
   }
@@ -153,7 +145,7 @@ function getSingleQuizz(elm) {
   }
 
   const quizzId = elm.id;
-  const promise = axios.get(`${url}quizzes/${elm.id}`);
+  const promise = axios.get(`${url}quizzes/${quizzId}`);
   promise.then((response) => {
     quizzData = response.data;
     renderSingleQuizz(quizzData);
@@ -163,7 +155,6 @@ function getSingleQuizz(elm) {
 }
 
 function renderSingleQuizz(quizz) {
-
   quizzPage.innerHTML = `
         <header class="quizz-title">
             <h3>${quizz.title}</h3>
@@ -195,8 +186,8 @@ function renderQuestions(questions) {
             </div>
             `;
     });
-
-    quizzPage.innerHTML += `
+    if (getLightness(singleQuestion.color) <= 50) {
+      quizzPage.innerHTML += `
         <section class="quizz-content">
               <header class="quizz-question" style="background-color:${singleQuestion.color}">
                 <h4>${singleQuestion.title}</h4>
@@ -206,6 +197,18 @@ function renderQuestions(questions) {
               </main>
         </section>
         `;
+    } else {
+      quizzPage.innerHTML += `
+        <section class="quizz-content">
+              <header class="quizz-question" style="background-color:${singleQuestion.color}">
+                <h4 style="color: #000">${singleQuestion.title}</h4>
+              </header>
+              <main class="quizz-answers">
+                ${questionAnswers}
+              </main>
+        </section>
+        `;
+    }
   });
 }
 
@@ -224,7 +227,7 @@ function answerOnClick(quizz) {
         answer.classList.add("selected");
         modifyAnswersAfterSelected(answer.parentNode);
 
-        if (countRightAnswers(answer)) {
+        if (isRightAnswer(answer)) {
           rightAnswersCounter++;
         }
 
@@ -327,59 +330,7 @@ function renderLevel(level, rightAnswersPercent) {
   `;
 }
 
-function countRightAnswers(answer) {
-  return (
-    answer.classList.contains("selected") &&
-    answer.classList.contains("quizz-right-answer")
-  );
-}
-function showResultOfQuestions(rightAnswers, totalAnswered, levels) {
-  const rightAnswersPercent = Math.floor((rightAnswers / totalAnswered) * 100);
-  let resultLevel = 0;
-  levels.forEach((level) => {
-    if (
-      level.minValue <= rightAnswersPercent &&
-      resultLevel <= level.minValue
-    ) {
-      resultLevel = level.minValue;
-    }
-  });
-  const selectedLevel = levels.filter((level) => {
-    return level.minValue === resultLevel;
-  });
-  renderLevel(selectedLevel[0], rightAnswersPercent);
-  backToHome();
-  resetQuizz();
-}
-
-function renderLevel(level, rightAnswersPercent) {
-  quizzLevel = document.querySelector(".quizz-level");
-  quizzLevel.innerHTML += `
-      <section class="quizz-content">
-        <header class="quizz-question">
-          <h4>
-            ${rightAnswersPercent}% de acerto: ${level.title}!
-          </h4>
-        </header>
-        <main class="quizz-answers quizz-recomendation">
-          <img
-            src="${level.image}"
-            alt=""
-          />
-          <p>
-            ${level.text}
-          </p>
-        </main>
-      </section>
-      <div class="btn-group">
-        <button class="btn-resetQuiz">Reiniciar Quizz</button>
-        <button class="btn-backToHome">Voltar pra home</button>
-      </div>
-  
-  `;
-}
-
-function countRightAnswers(answer) {
+function isRightAnswer(answer) {
   return (
     answer.classList.contains("selected") &&
     answer.classList.contains("quizz-right-answer")
@@ -418,32 +369,15 @@ function resetQuizz() {
   });
 }
 
-function showHidePage(showPage, hidePage) {
-  showPage.classList.toggle("hidden");
-  hidePage.classList.toggle("hidden");
-}
-
-function backToHome() {
-  const btnBackToHome = document.querySelector(".btn-backToHome");
-
-  btnBackToHome.addEventListener("click", () => {
-    showHidePage(page1, page2);
-    getAllQuizz();
-    window.scrollTo({ top: 0 });
-  });
-}
-function resetQuizz() {
-  const btnResetQuiz = document.querySelector(".btn-resetQuiz");
-  btnResetQuiz.addEventListener("click", () => {
-    const selectAllAnswers = document.querySelectorAll(".quizz-single-answer");
-    selectAllAnswers.forEach((answer) => {
-      answer.classList.remove("selected");
-      answer.classList.remove("notSelected");
-      answer.classList.remove("quizz-right-answer");
-      answer.classList.remove("quizz-wrong-answer");
-    });
-    window.scrollTo({ top: 0, behavior: "smooth" });
-    quizzLevel.innerHTML = "";
-    answerOnClick(quizzData);
-  });
+function getLightness(hexColor) {
+  hexColor = hexColor.replace(/#/g, "");
+  var result = /^([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})[\da-z]{0,0}$/i.exec(hexColor);
+  const r = parseInt(result[1], 16) / 255;
+  const g = parseInt(result[2], 16) / 255;
+  const b = parseInt(result[3], 16) / 255;
+  const max = Math.max(r, g, b),
+    min = Math.min(r, g, b);
+  let lightness = ((max + min) / 2) * 100;
+  lightness = Math.round(lightness);
+  return lightness;
 }

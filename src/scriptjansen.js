@@ -156,12 +156,6 @@ function validationIputData32() {
         })
 
     }
-
-
-
-
-
-
     containerScreen32.classList.toggle('hidden')
     containerScreen33.classList.toggle('hidden')
     renderNextPage33(inNumberLevels)
@@ -194,7 +188,6 @@ function validationIputData33() {
       )
     }
 
-    console.log('tudo certo')
 
     SendQuizzToServer()
 
