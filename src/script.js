@@ -73,17 +73,7 @@ btnAccess.addEventListener('click', () => {
   getSingleQuizz(usrIDS)
 })
 
-//Navegação page1 -> page2 e page3 -> page2
-// const addListen = document.querySelectorAll(".quizz");
-// addListen.forEach((elm) => {
 
-
-//   elm.addEventListener("click", () => {
-//     page1.classList.toggle("hidden");
-//     page2.classList.toggle("hidden");
-//     getSingleQuizz(elm);
-//   });
-// });
 
 /*Função quer busca o quiz de outros usuarios*/
 function getAllQuizz() {
@@ -124,10 +114,14 @@ function renderUserQuizz(list) {
 
         userList.innerHTML += `
           <div id="${elm.id}" style="background-image: url(${elm.image})" 
-            class="quizz">
+            class="quizz usr">
             <h3>
             ${elm.title}
             </h3>
+            <div class="menu">
+              <ion-icon class="icon-menu" name="create-outline"></ion-icon>
+              <ion-icon onclick="deleteQuizz(this)" class="icon-menu" name="trash-outline"></ion-icon>
+            </div>
           </div>
         `
       }
@@ -477,4 +471,36 @@ function resetQuizz() {
     quizzLevel.innerHTML = "";
     answerOnClick(quizzData);
   });
+}
+
+function deleteQuizz(icone) {
+  let id = icone.parentNode.parentNode.id
+  console.log(icone.parentNode.parentNode.id)
+  let key = localStorage.getItem(id)
+  if(confirm()){
+    const promise = axios.delete(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${id}`, 
+    {
+      headers: {
+        'Secret-Key': key,
+    }
+  })
+    promise.then(() => {
+      localStorage.removeItem(id)
+
+      let usrIDS = JSON.parse(localStorage.getItem('id'))
+      let newIDS = arrayRemove(usrIDS, id)
+      localStorage.setItem('id', JSON.stringify(newIDS))
+
+      window.location.reload()
+
+    })
+    promise.catch(error => console.log(error))
+  }
+  
+}
+
+function arrayRemove(array, value){
+  return array.filter(function(elm){
+    return elm != value
+  })
 }

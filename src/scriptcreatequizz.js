@@ -611,12 +611,13 @@ function SendQuizzToServer() {
       pars.push(data.id)
       let strin = JSON.stringify(pars)
       localStorage.setItem('id', strin)
+      localStorage.setItem(data.id, data.key)
     }
     else {
       listId.push(data.id)
       let strin = JSON.stringify(listId)
       localStorage.setItem('id', strin)
-
+      localStorage.setItem(data.id, data.key)
     }
     return data.id
   })
