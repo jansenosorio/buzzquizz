@@ -91,12 +91,16 @@ function getAllQuizz() {
 /*Função que renderiza quizz do usuario*/
 function renderUserQuizz(list) {
   if (localStorage.getItem('id')) {
+    let aux = 0;
 
     let usrIDS = JSON.parse(localStorage.getItem('id'));
     list.forEach(elm => {
-      console.log(elm.id)
-      console.log(usrIDS)
+
       if (usrIDS.includes(elm.id)) {
+        aux++;
+        if(!(noQuizz.classList.contains('hidden'))){
+          noQuizz.classList.add('hidden')
+        }
         document.querySelector(".skeleton-loading").classList.add("hidden");
         withQuizz.classList.remove("hidden");
 
@@ -110,8 +114,10 @@ function renderUserQuizz(list) {
         `
       }
       else{
-        document.querySelector(".skeleton-loading").classList.add("hidden");
-        noQuizz.classList.remove("hidden");
+        if(aux == 0){
+          document.querySelector(".skeleton-loading").classList.add("hidden");
+          noQuizz.classList.remove("hidden");
+        }
       }
     })
     const addListen = document.querySelectorAll(".quizz");
