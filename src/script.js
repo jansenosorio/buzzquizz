@@ -82,21 +82,24 @@ function getAllQuizz() {
   promise.then((response) => {
     quizzList = response.data;
     renderAllQuizz(quizzList);
-    renderUserQuizz();
+    renderUserQuizz(quizzList);
 
   });
   promise.catch((error) => console.log(error));
 }
 
 /*Função que renderiza quizz do usuario*/
-function renderUserQuizz() {
+function renderUserQuizz(list) {
   if (localStorage.getItem('id')) {
-    document.querySelector(".skeleton-loading").classList.add("hidden");
-    withQuizz.classList.remove("hidden");
 
     let usrIDS = JSON.parse(localStorage.getItem('id'));
-    quizzList.forEach(elm => {
+    list.forEach(elm => {
+      console.log(elm.id)
+      console.log(usrIDS)
       if (usrIDS.includes(elm.id)) {
+        document.querySelector(".skeleton-loading").classList.add("hidden");
+        withQuizz.classList.remove("hidden");
+
         userList.innerHTML += `
           <div id="${elm.id}" style="background-image: url(${elm.image})" 
             class="quizz">
@@ -105,6 +108,10 @@ function renderUserQuizz() {
             </h3>
           </div>
         `
+      }
+      else{
+        document.querySelector(".skeleton-loading").classList.add("hidden");
+        noQuizz.classList.remove("hidden");
       }
     })
     const addListen = document.querySelectorAll(".quizz");
