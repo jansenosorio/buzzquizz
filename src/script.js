@@ -47,25 +47,43 @@ function renderAllQuizz(list) {
         `;
   }
 
-  //Navegação page1 -> page2
-  const addListen = document.querySelectorAll(".quizz");
-  addListen.forEach((elm) => {
-    elm.addEventListener("click", () => {
-      showHidePage(page2, page1);
-      getSingleQuizz(elm);
-    });
-  });
 }
 
 //Navegação page1 -> page2
 const addListen = document.querySelectorAll(".quizz");
 addListen.forEach((elm) => {
   elm.addEventListener("click", () => {
-    page1.classList.toggle("hidden");
-    page2.classList.toggle("hidden");
+    showHidePage(page2, page1);
     getSingleQuizz(elm);
   });
 });
+
+const btnAccess = document.querySelector('.bt-access-quizz');
+btnAccess.addEventListener('click', () => {
+  document.querySelector('.container-page-final').classList.toggle('hidden');
+  page2.classList.toggle('hidden');
+
+  let usrIDS = {
+    id: ''
+  }
+  
+  usrIDS.id = JSON.parse(localStorage.getItem('id'));
+
+
+  getSingleQuizz(usrIDS)
+})
+
+//Navegação page1 -> page2 e page3 -> page2
+// const addListen = document.querySelectorAll(".quizz");
+// addListen.forEach((elm) => {
+
+
+//   elm.addEventListener("click", () => {
+//     page1.classList.toggle("hidden");
+//     page2.classList.toggle("hidden");
+//     getSingleQuizz(elm);
+//   });
+// });
 
 /*Função quer busca o quiz de outros usuarios*/
 function getAllQuizz() {
@@ -98,7 +116,7 @@ function renderUserQuizz(list) {
 
       if (usrIDS.includes(elm.id)) {
         aux++;
-        if(!(noQuizz.classList.contains('hidden'))){
+        if (!(noQuizz.classList.contains('hidden'))) {
           noQuizz.classList.add('hidden')
         }
         document.querySelector(".skeleton-loading").classList.add("hidden");
@@ -113,8 +131,8 @@ function renderUserQuizz(list) {
           </div>
         `
       }
-      else{
-        if(aux == 0){
+      else {
+        if (aux == 0) {
           document.querySelector(".skeleton-loading").classList.add("hidden");
           noQuizz.classList.remove("hidden");
         }

@@ -9,6 +9,7 @@ let btCreateLevels = ''
 let containerScreen31 = ''
 let containerScreen32 = ''
 let containerScreen33 = ''
+let containerScreenFinalPage = ''
 let creatYourQuestions = ''
 let textQuestion = ''
 let hexadecimal = ''
@@ -42,6 +43,7 @@ function getElementsFromHtml() {
   containerScreen31 = document.querySelector('.container-page-3-1')
   containerScreen32 = document.querySelector('.container-page-3-2')
   containerScreen33 = document.querySelector('.container-page-3-3')
+  containerScreenFinalPage = document.querySelector('.container-page-final')
   creatYourQuestions = document.querySelector('.create-your-questions')
 
   // Get input elements from HTML
@@ -180,8 +182,6 @@ function validationIputData33() {
     minCharactersLevelsDescription() === true &&
     isOneLevelZeroPercent() === true
   ) {
-    document.querySelector('.container-page-final').classList.toggle('hidden');
-    containerScreen33.classList.toggle('hidden');
 
     for (let i = 0; i < inTitleLevels.length; i++) {
       quizz.levels.push(
@@ -190,13 +190,14 @@ function validationIputData33() {
           image: inUrlImgLevels[i].value,
           text: inLevelsDescription[i].value,
           minValue: inPorcentMin[i].value
-      }
+        }
       )
     }
 
     console.log('tudo certo')
 
-    SendQuizzToServer()
+    const lastid = SendQuizzToServer()
+    renderFinalPage(lastid)
 
   } else {
     alert('Favor verificar os campos, há algo errado')
@@ -604,7 +605,7 @@ function SendQuizzToServer() {
     const data = response.data
     let listId = []
 
-    if(localStorage.getItem('id')){
+    if (localStorage.getItem('id')) {
       listId = localStorage.getItem('id')
       let pars = JSON.parse(listId)
       pars.push(data.id)
@@ -617,7 +618,28 @@ function SendQuizzToServer() {
       localStorage.setItem('id', strin)
 
     }
-    
+    return data.id
   })
   promise.catch(error => console.log(error))
+}
+
+function renderFinalPage(id) {
+  containerScreen33.classList.toggle('hidden')
+  containerScreenFinalPage.classList.toggle('hidden')
+
+  const exibir = document.querySelector('.final-quizz');
+  exibir.innerHTML = `
+  <div id="${id}" style="background-image: url(${quizz.image
+    })" class="quizz">
+            <h3>
+            ${quizz.title}
+            </h3>
+        </div>
+  `
+
+  let btnBack = document.querySelector('.back-to-home')
+  btnBack.addEventListener('click', () => {
+    containerScreenFinalPage.classList.toggle('hidden')
+    document.querySelector('.quizz-list-screen').classList.toggle('hidden')
+  })
 }
